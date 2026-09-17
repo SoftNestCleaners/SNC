@@ -5,7 +5,7 @@ Hosting is free; you pay only for the domain.
 
 ```
 index.html                the page
-style.css                 all styles
+style.css                 all style
 script.js                 form submit, phone formatting, file limits
 images/                   replace these placeholders with real photos
 functions/api/quote.js    the form handler — becomes /api/quote automatically
