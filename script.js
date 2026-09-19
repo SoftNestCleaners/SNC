@@ -53,19 +53,6 @@
     });
   }
 
-  var consentBox = document.getElementById('consent');
-  var consentWrap = consentBox ? consentBox.closest('.consent') : null;
-  var consentErr = document.getElementById('consentErr');
-
-  if (consentBox) {
-    consentBox.addEventListener('change', function () {
-      if (consentBox.checked) {
-        if (consentWrap) consentWrap.classList.remove('err');
-        if (consentErr) consentErr.classList.remove('show');
-      }
-    });
-  }
-
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -75,22 +62,14 @@
       if (el) el.value = el.value.trim();
     });
 
-    if (consentWrap) consentWrap.classList.remove('err');
-    if (consentErr) consentErr.classList.remove('show');
-
     // native validation first
     if (!form.checkValidity()) {
       Array.prototype.forEach.call(form.elements, function (el) { el.classList.add('touched'); });
       var bad = form.querySelector(':invalid');
-      if (bad === consentBox) {
-        if (consentWrap) consentWrap.classList.add('err');
-        if (consentErr) consentErr.classList.add('show');
-        bad.focus();
-        show('Please check the box to confirm you agree to be contacted.', 'err');
-      } else {
-        if (bad) bad.focus();
-        show('Please fill in the required fields.', 'err');
-      }
+      if (bad) bad.focus();
+      show(bad && bad.id === 'consent'
+        ? 'Please check the box so we can get back to you.'
+        : 'Please fill in the required fields.', 'err');
       return;
     }
 
