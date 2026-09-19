@@ -1,0 +1,11 @@
+/images/*
+  Cache-Control: public, max-age=2592000
+
+/style.css
+  Cache-Control: public, max-age=86400
+
+/script.js
+  Cache-Control: public, max-age=86400
+
+/prices.js
+  Cache-Control: public, max-age=86400
