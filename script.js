@@ -104,11 +104,13 @@
     var curIdx = 0;
 
     function showImg() {
-      var src = galleryImgs[curIdx].currentSrc || galleryImgs[curIdx].src;
-      lbImg.src = src;
-      lbImg.alt = galleryImgs[curIdx].alt || '';
-      lbCap.textContent = galleryImgs[curIdx].getAttribute('data-cap') || galleryImgs[curIdx].alt || '';
-    }
+  var el = galleryImgs[curIdx];
+  var full = el.getAttribute('data-full');
+  lbImg.src = full || el.currentSrc || el.src;
+  lbImg.alt = el.alt || '';
+  lbCap.textContent = el.getAttribute('data-cap') || el.alt || '';
+}
+
     function openLightbox(i) {
       curIdx = i;
       showImg();
