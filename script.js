@@ -65,6 +65,10 @@
     // native validation first
     if (!form.checkValidity()) {
       Array.prototype.forEach.call(form.elements, function (el) { el.classList.add('touched'); });
+      var consentEl = document.getElementById('consent');
+var consentWrap = consentEl ? consentEl.closest('.consent') : null;
+if (consentWrap) consentWrap.classList.toggle('err', !consentEl.checked);
+
       var bad = form.querySelector(':invalid');
       if (bad) bad.focus();
       show(bad && bad.id === 'consent'
