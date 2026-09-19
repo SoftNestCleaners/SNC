@@ -1,4 +1,4 @@
-# SoftNest Cleaners — Cloudflare Pages edition
+# SoftNest Cleaners — Cloudflare Pages edition 
 
 Static page plus a Pages Function that delivers leads to Telegram.
 Hosting is free; you pay only for the domain.
