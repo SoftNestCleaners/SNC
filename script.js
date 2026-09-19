@@ -64,18 +64,20 @@
 
     // native validation first
     if (!form.checkValidity()) {
-      Array.prototype.forEach.call(form.elements, function (el) { el.classList.add('touched'); });
-      var consentEl = document.getElementById('consent');
-var consentWrap = consentEl ? consentEl.closest('.consent') : null;
-if (consentWrap) consentWrap.classList.toggle('err', !consentEl.checked);
+  Array.prototype.forEach.call(form.elements, function (el) { el.classList.add('touched'); });
 
-      var bad = form.querySelector(':invalid');
-      if (bad) bad.focus();
-      show(bad && bad.id === 'consent'
-        ? 'Please check the box so we can get back to you.'
-        : 'Please fill in the required fields.', 'err');
-      return;
-    }
+  var consentEl = document.getElementById('consent');
+  var consentLabel = document.querySelector('label[for="consent"]');
+  if (consentEl && consentLabel) {
+    consentLabel.style.color = consentEl.checked ? '' : 'red';
+  }
+
+  var bad = form.querySelector(':invalid');
+  if (bad) bad.focus();
+  show('Please fill in the required fields.', 'err');
+  return;
+}
+
 
     var original = btn.textContent;
     btn.disabled = true;
