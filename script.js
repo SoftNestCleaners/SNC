@@ -53,15 +53,44 @@
     });
   }
 
+  var consentBox = document.getElementById('consent');
+  var consentWrap = consentBox ? consentBox.closest('.consent') : null;
+  var consentErr = document.getElementById('consentErr');
+
+  if (consentBox) {
+    consentBox.addEventListener('change', function () {
+      if (consentBox.checked) {
+        if (consentWrap) consentWrap.classList.remove('err');
+        if (consentErr) consentErr.classList.remove('show');
+      }
+    });
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+
+    // trim leading/trailing/whitespace-only entries before validating
+    ['firstName', 'lastName'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.value = el.value.trim();
+    });
+
+    if (consentWrap) consentWrap.classList.remove('err');
+    if (consentErr) consentErr.classList.remove('show');
 
     // native validation first
     if (!form.checkValidity()) {
       Array.prototype.forEach.call(form.elements, function (el) { el.classList.add('touched'); });
       var bad = form.querySelector(':invalid');
-      if (bad) bad.focus();
-      show('Please fill in the required fields.', 'err');
+      if (bad === consentBox) {
+        if (consentWrap) consentWrap.classList.add('err');
+        if (consentErr) consentErr.classList.add('show');
+        bad.focus();
+        show('Please check the box to confirm you agree to be contacted.', 'err');
+      } else {
+        if (bad) bad.focus();
+        show('Please fill in the required fields.', 'err');
+      }
       return;
     }
 
@@ -104,13 +133,12 @@
     var curIdx = 0;
 
     function showImg() {
-  var el = galleryImgs[curIdx];
-  var full = el.getAttribute('data-full');
-  lbImg.src = full || el.currentSrc || el.src;
-  lbImg.alt = el.alt || '';
-  lbCap.textContent = el.getAttribute('data-cap') || el.alt || '';
-}
-
+      var el = galleryImgs[curIdx];
+      var full = el.getAttribute('data-full');
+      lbImg.src = full || el.currentSrc || el.src;
+      lbImg.alt = el.alt || '';
+      lbCap.textContent = el.getAttribute('data-cap') || el.alt || '';
+    }
     function openLightbox(i) {
       curIdx = i;
       showImg();
