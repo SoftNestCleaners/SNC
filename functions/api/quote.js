@@ -45,7 +45,7 @@ export async function onRequestGet() {
   return json({ ok: false, error: 'Method not allowed' }, 405);
 }
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost({ request, env, waitUntil }) {
   let form;
   try {
     form = await request.formData();
@@ -105,7 +105,7 @@ export async function onRequestPost({ request, env }) {
   const token = env.TELEGRAM_BOT_TOKEN;
   const chatId = env.TELEGRAM_CHAT_ID;
 
-  /* ---------- Telegram ---------- */
+  /* ---------- Telegram text (this is the only part we wait for) ---------- */
   let telegramOk = false;
   if (token && chatId) {
     try {
@@ -118,56 +118,56 @@ export async function onRequestPost({ request, env }) {
     } catch {
       telegramOk = false;
     }
+  }
 
-    /* photos, capped */
-    if (telegramOk) {
-      const photos = form.getAll('photos[]').filter((f) => f && typeof f === 'object' && f.size > 0);
-      let sent = 0;
-      for (const file of photos) {
-        if (sent >= MAX_PHOTOS) break;
-        if (file.size > MAX_PHOTO_BYTES) continue;
-        if (!/^image\//.test(file.type || '')) continue;
-        try {
+  /* ---------- photos: sent in parallel, in the background, after we respond ---------- */
+  if (telegramOk) {
+    const photos = form.getAll('photos[]').filter((f) => f && typeof f === 'object' && f.size > 0);
+    const toSend = photos.filter((f) => f.size <= MAX_PHOTO_BYTES && /^image\//.test(f.type || '')).slice(0, MAX_PHOTOS);
+    if (toSend.length) {
+      const sendPhotos = Promise.all(
+        toSend.map((file, i) => {
           const fd = new FormData();
           fd.append('chat_id', chatId);
-          if (sent === 0) fd.append('caption', `📎 Photos from ${firstName} ${lastName}`);
-          fd.append('photo', file, file.name || `photo${sent}.jpg`);
-          await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, { method: 'POST', body: fd });
-          sent++;
-        } catch {
-          /* a failed photo must not fail the whole lead */
-        }
-      }
+          if (i === 0) fd.append('caption', `📎 Photos from ${firstName} ${lastName}`);
+          fd.append('photo', file, file.name || `photo${i}.jpg`);
+          return fetch(`https://api.telegram.org/bot${token}/sendPhoto`, { method: 'POST', body: fd })
+            .catch(() => { /* a failed photo must not fail the whole lead */ });
+        })
+      );
+      if (waitUntil) waitUntil(sendPhotos); else await sendPhotos;
     }
   }
 
-  /* ---------- email backup (optional, via Resend) ---------- */
-  let mailOk = false;
+  /* ---------- email backup (optional, via Resend) — also backgrounded ---------- */
+  let mailPromise = Promise.resolve(false);
   if (env.RESEND_API_KEY && env.ADMIN_EMAIL && env.MAIL_FROM) {
-    try {
-      const plain = text.replace(/<\/?b>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-      const res = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${env.RESEND_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: env.MAIL_FROM,
-          to: [env.ADMIN_EMAIL],
-          reply_to: email,
-          subject: `New quote request — ${firstName} ${lastName}`,
-          text: plain,
-        }),
-      });
-      mailOk = res.ok;
-    } catch {
-      mailOk = false;
-    }
+    const plain = text.replace(/<\/?b>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+    mailPromise = fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: env.MAIL_FROM,
+        to: [env.ADMIN_EMAIL],
+        reply_to: email,
+        subject: `New quote request — ${firstName} ${lastName}`,
+        text: plain,
+      }),
+    }).then((res) => res.ok).catch(() => false);
   }
 
-  /* ---------- respond honestly ---------- */
-  if (telegramOk || mailOk) {
+  /* ---------- respond honestly, without waiting on photos/email ---------- */
+  if (telegramOk) {
+    if (waitUntil) waitUntil(mailPromise);
+    return json({ ok: true, message: 'Quote request received' });
+  }
+
+  // Telegram text failed — this is the rare path, so it's fine to wait on the email here.
+  const mailOk = await mailPromise;
+  if (mailOk) {
     return json({ ok: true, message: 'Quote request received' });
   }
 
