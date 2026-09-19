@@ -91,11 +91,11 @@
           // The request did NOT go through. Never claim success here.
           var detail = (r.data && r.data.error) ? ' (' + r.data.error + ')' : '';
           show('We could not send your request' + detail +
-               '. Please call (331) 274-9415 or email softnestcleaners@gmail.com.', 'err');
+               '. Please call (331) 302-2234 or email softnestcleaners@gmail.com.', 'err');
         }
       })
       .catch(function () {
-        show('Network error — your request was not sent. Please call (331) 274-9415 ' +
+        show('Network error — your request was not sent. Please call (331) 302-2234 ' +
              'or email softnestcleaners@gmail.com.', 'err');
       })
       .then(function () {
