@@ -52,13 +52,14 @@
       msg.className = 'form-msg';
     });
   }
-var consentEl = document.getElementById('consent');
-var consentLabel = document.querySelector('label[for="consent"]');
-if (consentEl && consentLabel) {
-  consentEl.addEventListener('change', function () {
-    if (consentEl.checked) consentLabel.style.color = '';
-  });
-}
+
+  var consentEl = document.getElementById('consent');
+  var consentLabel = document.querySelector('label[for="consent"]');
+  if (consentEl && consentLabel) {
+    consentEl.addEventListener('change', function () {
+      if (consentEl.checked) consentLabel.style.color = '';
+    });
+  }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -71,22 +72,27 @@ if (consentEl && consentLabel) {
 
     // native validation first
     if (!form.checkValidity()) {
-  Array.prototype.forEach.call(form.elements, function (el) { el.classList.add('touched'); });
-if (consentEl && consentLabel) {
-  consentLabel.style.color = consentEl.checked ? '' : '#9A2C1E';
-}
+      Array.prototype.forEach.call(form.elements, function (el) { el.classList.add('touched'); });
+      if (consentEl && consentLabel) {
+        consentLabel.style.color = consentEl.checked ? '' : '#9A2C1E';
+      }
+      var bad = form.querySelector(':invalid');
+      if (bad) bad.focus();
+      show('Please fill in the required fields.', 'err');
+      return;
+    }
 
-  var bad = form.querySelector(':invalid');
-  if (bad) bad.focus();
-  show('Please fill in the required fields.', 'err');
-  return;
-}
-
-
-    var original = btn.textContent;
+    var label = btn.querySelector('.btn-label');
+    var original = label ? label.textContent : btn.textContent;
     btn.disabled = true;
-    btn.textContent = 'Sending…';
+    btn.classList.add('sending');
+    if (label) label.textContent = 'Sending…'; else btn.textContent = 'Sending…';
     msg.className = 'form-msg';
+
+    var suckTargets = form.querySelectorAll('.fg, .consent');
+    Array.prototype.forEach.call(suckTargets, function (el, i) {
+      setTimeout(function () { el.classList.add('suck'); }, i * 35);
+    });
 
     fetch(form.action, { method: 'POST', body: new FormData(form) })
       .then(function (res) {
@@ -96,21 +102,30 @@ if (consentEl && consentLabel) {
       .then(function (r) {
         if (r.status === 200 && r.data && r.data.ok) {
           form.reset();
+          if (label) label.textContent = 'Sent ✓';
+          setTimeout(function () {
+            Array.prototype.forEach.call(suckTargets, function (el) { el.classList.remove('suck'); });
+          }, 1000);
           show('Thanks — your request is in. We usually reply the same day.', 'ok');
         } else {
+          Array.prototype.forEach.call(suckTargets, function (el) { el.classList.remove('suck'); });
           // The request did NOT go through. Never claim success here.
           var detail = (r.data && r.data.error) ? ' (' + r.data.error + ')' : '';
           show('We could not send your request' + detail +
-               '. Please call (331) 302-2234 or email softnestcleaners@gmail.com.', 'err');
+               '. Please call (331) 274-9415 or email softnestcleaners@gmail.com.', 'err');
         }
       })
       .catch(function () {
-        show('Network error — your request was not sent. Please call (331) 302-2234 ' +
+        Array.prototype.forEach.call(suckTargets, function (el) { el.classList.remove('suck'); });
+        show('Network error — your request was not sent. Please call (331) 274-9415 ' +
              'or email softnestcleaners@gmail.com.', 'err');
       })
       .then(function () {
         btn.disabled = false;
-        btn.textContent = original;
+        btn.classList.remove('sending');
+        setTimeout(function () {
+          if (label) label.textContent = original; else btn.textContent = original;
+        }, 1400);
       });
   });
   /* ---- photo lightbox for "what we clean" thumbnails ---- */
