@@ -52,6 +52,13 @@
       msg.className = 'form-msg';
     });
   }
+var consentEl = document.getElementById('consent');
+var consentLabel = document.querySelector('label[for="consent"]');
+if (consentEl && consentLabel) {
+  consentEl.addEventListener('change', function () {
+    if (consentEl.checked) consentLabel.style.color = '';
+  });
+}
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -65,12 +72,9 @@
     // native validation first
     if (!form.checkValidity()) {
   Array.prototype.forEach.call(form.elements, function (el) { el.classList.add('touched'); });
-
-  var consentEl = document.getElementById('consent');
-  var consentLabel = document.querySelector('label[for="consent"]');
-  if (consentEl && consentLabel) {
-    consentLabel.style.color = consentEl.checked ? '' : 'red';
-  }
+if (consentEl && consentLabel) {
+  consentLabel.style.color = consentEl.checked ? '' : '#9A2C1E';
+}
 
   var bad = form.querySelector(':invalid');
   if (bad) bad.focus();
