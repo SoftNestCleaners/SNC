@@ -1,4 +1,4 @@
-в/images/*
+/images/*
   Cache-Control: public, max-age=2592000
 
 /style.css
