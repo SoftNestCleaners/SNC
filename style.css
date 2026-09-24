@@ -61,13 +61,18 @@ h1,h2,h3{color:var(--ink);letter-spacing:-.025em}
 .t-stat span{font-size:.9rem;margin-top:6px;display:block}
 
 /* label */
-.t-label{font-size:.74rem;font-weight:700;letter-spacing:.14em;color:var(--clay-dk);margin-bottom:10px}
+.t-label{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.12em;color:var(--clay-dk);
+  background:var(--sky);padding:5px 12px;border-radius:99px;margin-bottom:14px}
+
 .tile h2{font-size:1.5rem;font-weight:700;margin-bottom:8px}
 .tile h3{font-size:1.1rem;font-weight:700;margin-bottom:5px}
 .tile p.sm{font-size:.93rem}
 
 /* service tile, text only now */
 .t-svc{min-height:140px}
+.t-svc:nth-of-type(odd){background:var(--sky)}
+.t-svc:nth-of-type(even){background:var(--sun)}
+
 
 /* recent work strip */
 .work-strip{display:flex;gap:10px;overflow-x:auto;padding:4px 22px 18px;margin-bottom:var(--gap);
