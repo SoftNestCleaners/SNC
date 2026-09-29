@@ -361,10 +361,7 @@
     var roomForm = document.getElementById('roomForm');
     var roomFormMsg = document.getElementById('roomFormMsg');
     var lastFocus = null;
-    var goToRoomBtn = document.getElementById('goToRoomBtn');
-    if (goToRoomBtn) {
-     goToRoomBtn.addEventListener('click', closeDrawer);
-    }
+    
 
     var escHtml = function (s) {
       return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -654,7 +651,10 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending…';
       roomFormMsg.className = 'form-msg';
-
+      var goToRoomBtn = document.getElementById('goToRoomBtn');
+      if (goToRoomBtn) {
+        goToRoomBtn.addEventListener('click', closeDrawer);
+      }
       var fd = new FormData(roomForm);
       var itemsStr = cart.map(function (it) { return it.name + ' ' + it.price; }).join('; ');
       var userMsg = (document.getElementById('rmMessage').value || '').trim();
