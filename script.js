@@ -353,7 +353,11 @@
     var cartEmpty = document.getElementById('cartEmpty');
     var cartTotalEl = document.getElementById('cartTotal');
     var cartNote = document.getElementById('cartNote');
-    var cartBook = document.getElementById('cartBook');
+    var rmTotalEl = document.getElementById('rmTotal');
+    var rmBook = document.getElementById('rmBook');
+    var roomBook = document.getElementById('roomBook');
+    var roomBookTotal = document.getElementById('roomBookTotal');
+    var currentModalKey = null;
     var roomForm = document.getElementById('roomForm');
     var roomFormMsg = document.getElementById('roomFormMsg');
     var lastFocus = null;
@@ -395,15 +399,21 @@
       var savedCart = sessionStorage.getItem('snc-room-cart');
       if (savedCart) cart = JSON.parse(savedCart) || [];
     } catch (e) { cart = []; }
+    /* normalize: every entry carries a qty */
+    cart.forEach(function (it) { if (!it.qty || it.qty < 1) it.qty = 1; });
 
     function saveCart() {
       try { sessionStorage.setItem('snc-room-cart', JSON.stringify(cart)); } catch (e) {}
     }
-    function inCart(name, price) {
+    function findIdx(name, price) {
       for (var i = 0; i < cart.length; i++) {
-        if (cart[i].name === name && cart[i].price === price) return true;
+        if (cart[i].name === name && cart[i].price === price) return i;
       }
-      return false;
+      return -1;
+    }
+    function qtyOf(name, price) {
+      var i = findIdx(name, price);
+      return i >= 0 ? cart[i].qty : 0;
     }
 
     /* ---- price parsing: "$140" exact; "from $60"/"on request" → approximate ---- */
@@ -413,13 +423,14 @@
     }
     function priceIsExact(price) { return /^\s*\$\s*[\d,]+\s*$/.test(String(price)); }
     function totals() {
-      var sum = 0, approx = false;
+      var sum = 0, approx = false, count = 0;
       cart.forEach(function (it) {
         var n = priceNumber(it.price);
-        if (n !== null) sum += n;
+        if (n !== null) sum += n * it.qty;
         if (!priceIsExact(it.price)) approx = true;
+        count += it.qty;
       });
-      return { sum: sum, approx: approx };
+      return { sum: sum, approx: approx, count: count };
     }
     function totalText() {
       if (!cart.length) return '$0';
@@ -429,58 +440,91 @@
     }
 
     function renderCart() {
-      cartCount.textContent = String(cart.length);
-      cartCount.className = 'cart-count' + (cart.length ? ' on' : '');
+      var t = totals();
+      cartCount.textContent = String(t.count);
+      cartCount.className = 'cart-count' + (t.count ? ' on' : '');
       if (!cart.length) {
         cartItemsEl.innerHTML = '';
         cartEmpty.style.display = '';
         cartTotalEl.textContent = '$0';
         cartNote.style.display = 'none';
-        cartBook.disabled = true;
         roomForm.classList.remove('open');
-        return;
+      } else {
+        cartEmpty.style.display = 'none';
+        var html = '';
+        cart.forEach(function (it, i) {
+          html += '<div class="cart-item">' +
+            '<span class="ci-nm">' + escHtml(it.name) + '</span>' +
+            '<span class="ci-qty">' +
+              '<button type="button" class="ci-q" data-i="' + i + '" data-d="-1" aria-label="One less ' + escHtml(it.name) + '">&minus;</button>' +
+              '<span class="ci-n">' + it.qty + '</span>' +
+              '<button type="button" class="ci-q" data-i="' + i + '" data-d="1" aria-label="One more ' + escHtml(it.name) + '">+</button>' +
+            '</span>' +
+            '<span class="ci-pr">' + escHtml(it.price) + '</span>' +
+            '<button type="button" class="ci-rm" data-i="' + i + '" aria-label="Remove ' +
+            escHtml(it.name) + '">&times;</button></div>';
+        });
+        cartItemsEl.innerHTML = html;
+        cartTotalEl.textContent = totalText();
+        cartNote.style.display = t.approx ? '' : 'none';
+        roomForm.classList.add('open');
       }
-      cartEmpty.style.display = 'none';
-      cartBook.disabled = false;
-      var html = '';
-      cart.forEach(function (it, i) {
-        html += '<div class="cart-item">' +
-          '<span class="ci-nm">' + escHtml(it.name) + '</span>' +
-          '<span class="ci-pr">' + escHtml(it.price) + '</span>' +
-          '<button type="button" class="ci-rm" data-i="' + i + '" aria-label="Remove ' +
-          escHtml(it.name) + '">&times;</button></div>';
-      });
-      cartItemsEl.innerHTML = html;
-      cartTotalEl.textContent = totalText();
-      cartNote.style.display = totals().approx ? '' : 'none';
+      /* sync modal footer + under-room button */
+      rmTotalEl.textContent = totalText();
+      roomBookTotal.textContent = cart.length ? '· ' + totalText() : '';
+      /* if the item modal is open, refresh its rows so quantities match */
+      if (roomModal.classList.contains('show') && currentModalKey) renderModalRows();
     }
 
     cartItemsEl.addEventListener('click', function (e) {
-      var b = e.target && e.target.closest ? e.target.closest('.ci-rm') : null;
-      if (!b) return;
-      cart.splice(parseInt(b.getAttribute('data-i'), 10), 1);
+      var rm = e.target && e.target.closest ? e.target.closest('.ci-rm') : null;
+      if (rm) {
+        cart.splice(parseInt(rm.getAttribute('data-i'), 10), 1);
+        saveCart();
+        renderCart();
+        return;
+      }
+      var q = e.target && e.target.closest ? e.target.closest('.ci-q') : null;
+      if (!q) return;
+      var i = parseInt(q.getAttribute('data-i'), 10);
+      cart[i].qty += parseInt(q.getAttribute('data-d'), 10);
+      if (cart[i].qty <= 0) cart.splice(i, 1);
       saveCart();
       renderCart();
     });
 
     /* ---- item modal ---- */
-    function openModal(key, label, srcBtn) {
-      var data = PRICES[key];
+    function renderModalRows() {
+      var data = PRICES[currentModalKey];
       if (!data) return;
-      lastFocus = srcBtn || document.activeElement;
-      roomModalTitle.textContent = label;
       var html = '';
       data.rows.forEach(function (row) {
-        var added = inCart(row[0], row[1]);
+        var qty = qtyOf(row[0], row[1]);
         html += '<div class="p-row rm-row">' +
           '<span class="nm">' + escHtml(row[0]) + '</span>' +
           '<span class="dots"></span>' +
-          '<span class="pr">' + escHtml(row[1]) + '</span>' +
-          '<button type="button" class="rm-add' + (added ? ' added' : '') + '"' +
-          ' data-name="' + escHtml(row[0]) + '" data-price="' + escHtml(row[1]) + '"' +
-          (added ? ' disabled' : '') + '>' + (added ? 'Added' : 'Add') + '</button></div>';
+          '<span class="pr">' + escHtml(row[1]) + '</span>';
+        if (qty > 0) {
+          html += '<span class="rm-qty">' +
+            '<button type="button" class="rm-q" data-name="' + escHtml(row[0]) + '" data-price="' + escHtml(row[1]) + '" data-d="-1" aria-label="One less">&minus;</button>' +
+            '<span class="rm-n">' + qty + '</span>' +
+            '<button type="button" class="rm-q" data-name="' + escHtml(row[0]) + '" data-price="' + escHtml(row[1]) + '" data-d="1" aria-label="One more">+</button>' +
+          '</span>';
+        } else {
+          html += '<button type="button" class="rm-add"' +
+            ' data-name="' + escHtml(row[0]) + '" data-price="' + escHtml(row[1]) + '">Add</button>';
+        }
+        html += '</div>';
       });
       roomModalPrices.innerHTML = html;
+    }
+    function openModal(key, label, srcBtn) {
+      if (!PRICES[key]) return;
+      currentModalKey = key;
+      lastFocus = srcBtn || document.activeElement;
+      roomModalTitle.textContent = label;
+      renderModalRows();
+      var data = PRICES[key];
       roomModalNote.textContent = data.note || '';
       roomModalNote.style.display = data.note ? '' : 'none';
       roomModal.classList.add('show');
@@ -500,20 +544,23 @@
     });
 
     roomModalPrices.addEventListener('click', function (e) {
-      var b = e.target && e.target.closest ? e.target.closest('.rm-add') : null;
-      if (!b || b.disabled) return;
+      var b = e.target && e.target.closest ? e.target.closest('.rm-add,.rm-q') : null;
+      if (!b) return;
       var name = b.getAttribute('data-name');
       var price = b.getAttribute('data-price');
-      if (!inCart(name, price)) {
-        cart.push({ name: name, price: price });
-        saveCart();
-        renderCart();
-        cartCount.classList.add('bump');
-        setTimeout(function () { cartCount.classList.remove('bump'); }, 350);
+      var i = findIdx(name, price);
+      if (b.classList.contains('rm-add')) {
+        if (i < 0) cart.push({ name: name, price: price, qty: 1 });
+        else cart[i].qty += 1;
+      } else {
+        if (i < 0) return;
+        cart[i].qty += parseInt(b.getAttribute('data-d'), 10);
+        if (cart[i].qty <= 0) cart.splice(i, 1);
       }
-      b.textContent = 'Added';
-      b.classList.add('added');
-      b.disabled = true;
+      saveCart();
+      renderCart();
+      cartCount.classList.add('bump');
+      setTimeout(function () { cartCount.classList.remove('bump'); }, 350);
     });
 
     roomLayer.querySelectorAll('.hotspot').forEach(function (hs) {
@@ -548,16 +595,21 @@
       else if (cartDrawer.classList.contains('show')) closeDrawer();
     });
 
-    /* ---- "Book the cleaning" reveals the compact checkout form ---- */
+    /* ---- "Review & book" — from the modal or under the room → opens the estimate drawer ---- */
     function showRoomMsg(text, kind) {
       roomFormMsg.textContent = text;
       roomFormMsg.className = 'form-msg show ' + kind;
     }
-    cartBook.addEventListener('click', function () {
-      roomForm.classList.add('open');
-      roomFormMsg.className = 'form-msg';
-      var f = document.getElementById('rmFirstName');
-      if (f) f.focus();
+    rmBook.addEventListener('click', function () {
+      closeModal();
+      openDrawer();
+    });
+    roomBook.addEventListener('click', function () {
+      openDrawer();
+      if (cart.length) {
+        var f = document.getElementById('rmFirstName');
+        if (f) f.focus();
+      }
     });
 
     /* same phone mask as the main form */

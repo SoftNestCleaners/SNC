@@ -524,6 +524,38 @@ p{margin:0}
 .rm-add:hover{background:var(--accent);color:#191411}
 .rm-add.added{background:var(--accent);color:#191411;border-color:var(--accent);cursor:default}
 
+/* qty steppers (modal + cart) */
+.rm-qty,.ci-qty{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:2px;
+  margin-left:6px;border:1px solid rgba(224,164,88,.4);border-radius:2px;
+}
+.rm-q,.ci-q{
+  width:26px;height:26px;background:transparent;border:0;color:var(--accent);
+  font-size:.95rem;font-weight:600;cursor:pointer;line-height:1;
+  transition:background .2s,color .2s;
+}
+.rm-q:hover,.ci-q:hover{background:var(--accent);color:#191411}
+.rm-n,.ci-n{min-width:20px;text-align:center;font-size:.8rem;font-weight:600;color:var(--text)}
+
+/* modal footer: running total + book */
+.rm-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  margin-top:18px;padding-top:16px;border-top:1px solid var(--line);
+}
+.rm-foot-total{font-size:.85rem;color:var(--muted)}
+.rm-foot-total b{color:var(--accent);font-size:1.05rem}
+.rm-book{
+  padding:10px 20px;background:var(--accent);color:#191411;border:0;border-radius:2px;
+  font-family:var(--font);font-size:.72rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  transition:background .25s;
+}
+.rm-book:hover{background:var(--accent-2)}
+
+/* under-room CTA */
+.room-cta{margin-top:26px;text-align:center}
+.room-book-total{font-weight:500}
+
 /* floating cart button */
 .cart-btn{
   position:fixed;right:18px;bottom:76px;z-index:60;
@@ -573,6 +605,7 @@ p{margin:0}
 }
 .ci-nm{flex:1;color:var(--text)}
 .ci-pr{color:var(--accent);font-weight:500;white-space:nowrap}
+.ci-qty{margin-left:8px;margin-right:8px}
 .ci-rm{
   width:28px;height:28px;border-radius:50%;flex:0 0 auto;
   background:transparent;border:1px solid var(--line);color:var(--muted);
