@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -10,9 +10,9 @@
 <meta property="og:url" content="https://softnestcleaners.com/">
 <meta property="og:title" content="Upholstery &amp; Carpet Cleaning in Naperville, IL | SoftNest Cleaners">
 <meta property="og:description" content="Upholstery, carpet, rug and mattress cleaning across Chicagoland. Free quotes, clear pricing, no surprises.">
-<meta property="og:image" content="https://softnestcleaners.com/images/hero.jpg">
+<meta property="og:image" content="https://softnestcleaners.com/images/hero-dark.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#F7F3E7">
+<meta name="theme-color" content="#1C1814">
 <link rel="icon" href="images/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
@@ -22,8 +22,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 
 <script type="application/ld+json">
 {
@@ -33,17 +34,17 @@
   "description":"Upholstery, carpet, area rug, mattress and car interior cleaning for homes across Chicagoland.",
   "url":"https://softnestcleaners.com/",
   "telephone":"+1-331-302-2234",
-  "email":"softnestcleaners@gmail.com",
-  "image":"https://softnestcleaners.com/images/hero.jpg",
+  "email":"help@softnestcleaners.com",
+  "image":"https://softnestcleaners.com/images/hero-dark.jpg",
   "priceRange":"$$",
   "address":{"@type":"PostalAddress","addressLocality":"Naperville","addressRegion":"IL","addressCountry":"US"},
   "areaServed":["Naperville","Aurora","Oswego","Yorkville","Plainfield","Lisle","Wheaton","Downers Grove"],
   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification",
-    "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-    "opens":"08:00","closes":"18:00"}]
+    "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens":"08:00","closes":"17:00"}]
 }
 </script>
-  <script type="application/ld+json">
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -64,199 +65,378 @@
 
 </head>
 <body>
-<div class="wrap">
 
-  <div class="top">
-    <a href="#" class="brand"><img src="images/logo.png" alt="SoftNest Cleaners" width="440" height="168" class="brand-logo"></a>
-    <nav class="top-nav"><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#quote">Quote</a><a href="#faq">FAQ</a></nav>
-    <a href="#quote" class="top-cta">Get a quote</a>
+<!-- ======================= TOPBAR ======================= -->
+<header class="topbar" id="topbar">
+  <a href="#top" class="brand"><img src="images/logo-light.png" alt="SoftNest Cleaners" width="440" height="168" class="brand-logo"></a>
+  <nav class="topbar-nav" aria-label="Main">
+    <a href="#work">Work</a>
+    <a href="#before-after">Before–After</a>
+    <a href="#room">Room</a>
+    <a href="#services">Services</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#areas">Areas</a>
+    <a href="#faq">FAQ</a>
+    <a href="#quote">Quote</a>
+  </nav>
+  <a href="tel:+13313022234" class="topbar-phone">(331) 302-2234</a>
+  <button type="button" class="burger" id="navBurger" aria-expanded="false" aria-controls="navDrawer" aria-label="Open menu">
+    <span class="burger-line" aria-hidden="true"></span>
+    <span class="burger-line" aria-hidden="true"></span>
+    <span class="burger-line" aria-hidden="true"></span>
+  </button>
+</header>
+
+<!-- ======================= MOBILE NAV DRAWER ======================= -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <nav class="nav-drawer-links" aria-label="Mobile navigation">
+    <a href="#work">Work</a>
+    <a href="#before-after">Before–After</a>
+    <a href="#room">Room</a>
+    <a href="#services">Services</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#areas">Areas</a>
+    <a href="#faq">FAQ</a>
+    <a href="#quote">Quote</a>
+  </nav>
+  <div class="nav-drawer-contact">
+    <a href="tel:+13313022234" class="nav-drawer-phone">(331) 302-2234</a>
+    <a href="mailto:help@softnestcleaners.com" class="nav-drawer-email">help@softnestcleaners.com</a>
   </div>
+</div>
 
-  <main>
+<main id="top">
 
-  <!-- ROW 1: hero + photo -->
-  <div class="bento">
-    <div class="tile t-hero s2">
-      <div>
-        <h1>Deep clean for the things you <span>live with every day.</span></h1>
-        <p>Upholstery, carpet, rugs and mattresses across Chicagoland — matched to the material, priced before we start.</p>
-        <div class="acts">
-          <a href="#quote" class="btn btn-1">Get a free quote</a>
-          <a href="tel:+13313022234" class="btn btn-2">(331) 302-2234</a>
+  <!-- ======================= HERO ======================= -->
+  <section class="hero">
+    <img class="hero-bg" src="images/hero-dark.webp" alt="Cream sofa in a deep charcoal living room lit by warm side light" fetchpriority="high">
+    <div class="hero-veil" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <p class="kicker reveal">Naperville · Chicagoland</p>
+      <h1 class="hero-title reveal">Deep clean for the things you <em>live with</em> every day</h1>
+      <p class="hero-sub reveal">Upholstery, carpet, rugs and mattresses — matched to the material, priced before we start, safe for kids and pets.</p>
+      <div class="hero-acts reveal">
+        <a href="#quote" class="btn btn-amber">Get a free quote</a>
+        <a href="tel:+13313022234" class="btn btn-ghost">(331) 302-2234</a>
+      </div>
+      <p class="hero-proof reveal"><span class="hero-stars" aria-hidden="true">★★★★★</span> 22 five-star reviews on Thumbtack</p>
+    </div>
+    <a href="#stats" class="scroll-cue" aria-label="Scroll down"><span></span></a>
+  </section>
+
+  <!-- ======================= STATS ======================= -->
+  <section class="stats" id="stats">
+    <div class="stat reveal"><b>1–3 <span class="u">hrs</span></b><span>Typical visit length</span></div>
+    <div class="stat reveal"><b>4–8 <span class="u">hrs</span></b><span>Until it's dry again</span></div>
+    <div class="stat reveal"><b>Family</b><span>Owned and run, not a franchise</span></div>
+    <div class="stat reveal"><b>8</b><span>Chicagoland suburbs served</span></div>
+  </section>
+
+  <!-- ======================= BEFORE / AFTER ======================= -->
+  <section class="section" id="before-after">
+    <div class="section-head reveal">
+      <p class="kicker">Before / After</p>
+      <h2>Drag the line. See the difference.</h2>
+      <p class="section-sub">Real photos from real visits — drag the line on each.</p>
+    </div>
+    <div class="ba-grid">
+      <figure class="ba reveal">
+        <div class="ba-stage" data-ba>
+          <img class="ba-img ba-before" src="images/ba-sofa-before.webp" alt="Green velvet sofa before cleaning — faded and stained fabric" loading="lazy" width="1024" height="508">
+          <img class="ba-img ba-after" src="images/ba-sofa-after.webp" alt="Same sofa after professional upholstery cleaning — vibrant even color" loading="lazy" width="1024" height="508">
+          <span class="ba-tag ba-tag-b" aria-hidden="true">Before</span>
+          <span class="ba-tag ba-tag-a" aria-hidden="true">After</span>
+          <div class="ba-handle" role="slider" tabindex="0" aria-label="Sofa before and after comparison slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <span class="ba-grip" aria-hidden="true"></span>
+          </div>
+        </div>
+        <figcaption>Upholstery — fabric sofa <span class="ba-note">Real customer photos</span></figcaption>
+      </figure>
+      <figure class="ba reveal">
+        <div class="ba-stage" data-ba>
+          <img class="ba-img ba-before" src="images/ba-carpet-before.webp" alt="Bedroom carpet before cleaning — visible stains and traffic lanes" loading="lazy" width="1024" height="508">
+          <img class="ba-img ba-after" src="images/ba-carpet-after.webp" alt="Same carpet after deep extraction — fresh and even" loading="lazy" width="1024" height="508">
+          <span class="ba-tag ba-tag-b" aria-hidden="true">Before</span>
+          <span class="ba-tag ba-tag-a" aria-hidden="true">After</span>
+          <div class="ba-handle" role="slider" tabindex="0" aria-label="Carpet before and after comparison slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <span class="ba-grip" aria-hidden="true"></span>
+          </div>
+        </div>
+        <figcaption>Carpet — deep extraction <span class="ba-note">Real customer photos</span></figcaption>
+      </figure>
+      <figure class="ba reveal">
+        <div class="ba-stage" data-ba>
+          <img class="ba-img ba-before" src="images/ba-rug-before.webp" alt="Cream area rug before cleaning — dull and grey from soil" loading="lazy" width="549" height="765">
+          <img class="ba-img ba-after" src="images/ba-rug-after.webp" alt="Same rug after cleaning — bright and white again" loading="lazy" width="549" height="765">
+          <span class="ba-tag ba-tag-b" aria-hidden="true">Before</span>
+          <span class="ba-tag ba-tag-a" aria-hidden="true">After</span>
+          <div class="ba-handle" role="slider" tabindex="0" aria-label="Area rug before and after comparison slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <span class="ba-grip" aria-hidden="true"></span>
+          </div>
+        </div>
+        <figcaption>Area rug — soil removal <span class="ba-note">Real customer photos</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ======================= INTERACTIVE ROOM ======================= -->
+  <section class="section" id="room">
+    <div class="section-head reveal">
+      <p class="kicker">Interactive Estimator</p>
+      <h2>Walk the room. Tap what needs cleaning.</h2>
+      <p class="section-sub">Look around — tap a marker, pick what you need, and watch the estimate build.</p>
+    </div>
+    <div class="room-stage reveal" id="roomStage">
+      <div class="room-frame">
+        <img class="room-img" id="roomImg" src="images/room-3d.webp" alt="Photorealistic render of a studio room with an armchair, sofa, dining chair, area rug, carpet and bed" width="2048" height="1152" loading="lazy">
+        <div class="room-hotspots" id="roomHotspots">
+          <button type="button" class="hotspot" style="left:12%;top:58%" data-key="upholstery" data-label="Armchair" aria-label="Armchair — view cleaning prices">
+            <span class="hs-dot" aria-hidden="true"></span>
+            <span class="hs-tip" aria-hidden="true">Armchair</span>
+          </button>
+          <button type="button" class="hotspot" style="left:34%;top:53%" data-key="upholstery" data-label="Sofa" aria-label="Sofa — view cleaning prices">
+            <span class="hs-dot" aria-hidden="true"></span>
+            <span class="hs-tip" aria-hidden="true">Sofa</span>
+          </button>
+          <button type="button" class="hotspot" style="left:59%;top:52%" data-key="custom" data-label="Chair" aria-label="Dining chair — view cleaning prices">
+            <span class="hs-dot" aria-hidden="true"></span>
+            <span class="hs-tip" aria-hidden="true">Chair</span>
+          </button>
+          <button type="button" class="hotspot" style="left:30%;top:83%" data-key="rug" data-label="Area rug" aria-label="Area rug — view cleaning prices">
+            <span class="hs-dot" aria-hidden="true"></span>
+            <span class="hs-tip" aria-hidden="true">Area rug</span>
+          </button>
+          <button type="button" class="hotspot" style="left:68%;top:88%" data-key="carpet" data-label="Carpet" aria-label="Carpet — view cleaning prices">
+            <span class="hs-dot" aria-hidden="true"></span>
+            <span class="hs-tip" aria-hidden="true">Carpet</span>
+          </button>
+          <button type="button" class="hotspot" style="left:82%;top:63%" data-key="mattress" data-label="Mattress" aria-label="Mattress — view cleaning prices">
+            <span class="hs-dot" aria-hidden="true"></span>
+            <span class="hs-tip" aria-hidden="true">Mattress</span>
+          </button>
         </div>
       </div>
     </div>
-    <div class="tile img s2"><img width="1600" height="1066" src="images/hero.jpg" alt="Technician deep-cleaning upholstery with a hot-water extraction tool"></div>
-  </div>
+  </section>
 
-  <!-- ROW 2: stats -->
-  <div class="bento">
-    <div class="tile t-stat sky"><div><b>1–3<span style="font-size:1.1rem"> hrs</span></b><span>Typical visit length</span></div></div>
-    <div class="tile t-stat sun"><div><b>4–8<span style="font-size:1.1rem"> hrs</span></b><span>Until it's dry again</span></div></div>
-    <div class="tile t-stat"><div><b>Family</b><span>Owned and run, not a franchise</span></div></div>
-    <div class="tile t-stat"><div><b>8</b><span>Chicagoland suburbs served</span></div></div>
-  </div>
-<!-- ROW 4b: recent work strip -->
-  <div class="bento">
-    <div class="tile s4" style="padding:22px 26px 6px">
-      <div><p class="t-label">RECENT WORK</p><h2 style="margin:0">A few jobs, start to finish.</h2><p class="sm" style="margin-top:6px">Real photos from real visits — tap any to look closer.</p></div>
+  <!-- ======================= GALLERY ======================= -->
+  <section class="section section-alt" id="work">
+    <div class="section-head reveal">
+      <p class="kicker">Recent Work</p>
+      <h2>Real photos from real visits.</h2>
+      <p class="section-sub">Tap any photo to look closer.</p>
     </div>
-  </div>
-  <div class="work-strip">
-    <img class="gallery-img" src="images/work/work-01.jpg" data-full="images/work/work-01-full.jpg" width="307" height="300" alt="Carpet cleaning — living room" data-cap="Carpet cleaning — living room" loading="lazy">
-    <img class="gallery-img" src="images/work/work-02.jpg" data-full="images/work/work-02-full.jpg" width="298" height="300" alt="Carpet cleaning — staircase" data-cap="Carpet cleaning — staircase" loading="lazy">
-    <img class="gallery-img" src="images/work/work-03.jpg" data-full="images/work/work-03-full.jpg" width="297" height="300" alt="Carpet cleaning — closet area" data-cap="Carpet cleaning — closet area" loading="lazy">
-    <img class="gallery-img" src="images/work/work-04.jpg" data-full="images/work/work-04-full.jpg" width="297" height="300" alt="Carpet cleaning — bedroom" data-cap="Carpet cleaning — bedroom" loading="lazy">
-    <img class="gallery-img" src="images/work/work-05.jpg" data-full="images/work/work-05-full.jpg" width="301" height="300" alt="Upholstery cleaning — sectional sofa" data-cap="Upholstery cleaning — sectional sofa" loading="lazy">
-    <img class="gallery-img" src="images/work/work-06.jpg" data-full="images/work/work-06-full.jpg" width="295" height="300" alt="Carpet cleaning — result" data-cap="Carpet cleaning — result" loading="lazy">
-    <img class="gallery-img" src="images/work/work-07.jpg" data-full="images/work/work-07-full.jpg" width="300" height="300" alt="Carpet cleaning — bedroom" data-cap="Carpet cleaning — bedroom" loading="lazy">
-    <img class="gallery-img" src="images/work/work-08.jpg" data-full="images/work/work-08-full.jpg" width="296" height="300" alt="Carpet cleaning — pet stains removed" data-cap="Carpet cleaning — pet stains removed" loading="lazy">
-    <img class="gallery-img" src="images/work/work-09.jpg" data-full="images/work/work-09-full.jpg" width="304" height="300" alt="Area rug cleaning — stain removal" data-cap="Area rug cleaning — stain removal" loading="lazy">
-    <img class="gallery-img" src="images/work/work-10.jpg" data-full="images/work/work-10-full.jpg" width="540" height="300" alt="Area rug cleaning — living room" data-cap="Area rug cleaning — living room" loading="lazy">
-    <img class="gallery-img" src="images/work/work-11.jpg" data-full="images/work/work-11-full.jpg" width="301" height="300" alt="Carpet cleaning — closet area" data-cap="Carpet cleaning — closet area" loading="lazy">
-    <img class="gallery-img" src="images/work/work-12.jpg" data-full="images/work/work-12-full.jpg" width="431" height="300" alt="Area rug cleaning" data-cap="Area rug cleaning" loading="lazy">
-    <img class="gallery-img" src="images/work/work-13.jpg" data-full="images/work/work-13-full.jpg" width="400" height="300" alt="Area rug cleaning — result" data-cap="Area rug cleaning — result" loading="lazy">
-    <img class="gallery-img" src="images/work/work-14.jpg" data-full="images/work/work-14-full.jpg" width="242" height="300" alt="Carpet cleaning — bedroom, pet stains" data-cap="Carpet cleaning — bedroom, pet stains" loading="lazy">
-    <img class="gallery-img" src="images/work/work-15.jpg" data-full="images/work/work-15-full.jpg" width="519" height="300" alt="Carpet cleaning — living room" data-cap="Carpet cleaning — living room" loading="lazy">
-    <img class="gallery-img" src="images/work/work-16.jpg" data-full="images/work/work-16-full.jpg" width="571" height="300" alt="Area rug cleaning" data-cap="Area rug cleaning" loading="lazy">
-    <img class="gallery-img" src="images/work/work-17.jpg" data-full="images/work/work-17-full.jpg" width="296" height="300" alt="Carpet cleaning — staircase" data-cap="Carpet cleaning — staircase" loading="lazy">
-    <img class="gallery-img" src="images/work/work-18.jpg" data-full="images/work/work-18-full.jpg" width="365" height="300" alt="Carpet cleaning — hallway" data-cap="Carpet cleaning — hallway" loading="lazy">
-    <img class="gallery-img" src="images/work/work-19.jpg" data-full="images/work/work-19-full.jpg" width="325" height="300" alt="Area rug cleaning — patterned rug" data-cap="Area rug cleaning — patterned rug" loading="lazy">
-    <img class="gallery-img" src="images/work/work-20.jpg" data-full="images/work/work-20-full.jpg" width="334" height="300" alt="Area rug cleaning — patterned rug" data-cap="Area rug cleaning — patterned rug" loading="lazy">
-    <img class="gallery-img" src="images/work/work-21.jpg" data-full="images/work/work-21-full.jpg" width="286" height="300" alt="Mattress cleaning — stain removal" data-cap="Mattress cleaning — stain removal" loading="lazy">
-    <img class="gallery-img" src="images/work/work-22.jpg" data-full="images/work/work-22-full.jpg" width="318" height="300" alt="Upholstery cleaning — sectional sofa" data-cap="Upholstery cleaning — sectional sofa" loading="lazy">
-  </div>
-
-  <!-- ROW 3: services -->
-  <div class="bento" id="services">
-    <div class="tile s4" style="padding:22px 26px">
-      <div><p class="t-label">WHAT WE CLEAN</p><h2 style="margin:0">Six services, each on its own terms.</h2></div>
+    <div class="work-grid reveal">
+      <img class="gallery-img" src="images/work-01.jpg" data-full="images/work-01-full.jpg" width="307" height="300" alt="Carpet cleaning — living room" data-cap="Carpet cleaning — living room" loading="lazy">
+      <img class="gallery-img" src="images/work-02.jpg" data-full="images/work-02-full.jpg" width="298" height="300" alt="Carpet cleaning — staircase" data-cap="Carpet cleaning — staircase" loading="lazy">
+      <img class="gallery-img" src="images/work-03.jpg" data-full="images/work-03-full.jpg" width="297" height="300" alt="Carpet cleaning — closet area" data-cap="Carpet cleaning — closet area" loading="lazy">
+      <img class="gallery-img" src="images/work-04.jpg" data-full="images/work-04-full.jpg" width="297" height="300" alt="Carpet cleaning — bedroom" data-cap="Carpet cleaning — bedroom" loading="lazy">
+      <img class="gallery-img" src="images/work-05.jpg" data-full="images/work-05-full.jpg" width="301" height="300" alt="Upholstery cleaning — sectional sofa" data-cap="Upholstery cleaning — sectional sofa" loading="lazy">
+      <img class="gallery-img" src="images/work-06.jpg" data-full="images/work-06-full.jpg" width="295" height="300" alt="Carpet cleaning — result" data-cap="Carpet cleaning — result" loading="lazy">
+      <img class="gallery-img" src="images/work-07.jpg" data-full="images/work-07-full.jpg" width="300" height="300" alt="Carpet cleaning — bedroom" data-cap="Carpet cleaning — bedroom" loading="lazy">
+      <img class="gallery-img" src="images/work-08.jpg" data-full="images/work-08-full.jpg" width="296" height="300" alt="Carpet cleaning — pet stains removed" data-cap="Carpet cleaning — pet stains removed" loading="lazy">
+      <img class="gallery-img" src="images/work-09.jpg" data-full="images/work-09-full.jpg" width="304" height="300" alt="Area rug cleaning — stain removal" data-cap="Area rug cleaning — stain removal" loading="lazy">
+      <img class="gallery-img" src="images/work-10.jpg" data-full="images/work-10-full.jpg" width="540" height="300" alt="Area rug cleaning — living room" data-cap="Area rug cleaning — living room" loading="lazy">
+      <img class="gallery-img" src="images/work-11.jpg" data-full="images/work-11-full.jpg" width="301" height="300" alt="Carpet cleaning — closet area" data-cap="Carpet cleaning — closet area" loading="lazy">
+      <img class="gallery-img" src="images/work-12.jpg" data-full="images/work-12-full.jpg" width="431" height="300" alt="Area rug cleaning" data-cap="Area rug cleaning" loading="lazy">
+      <img class="gallery-img" src="images/work-13.jpg" data-full="images/work-13-full.jpg" width="400" height="300" alt="Area rug cleaning — result" data-cap="Area rug cleaning — result" loading="lazy">
+      <img class="gallery-img" src="images/work-14.jpg" data-full="images/work-14-full.jpg" width="242" height="300" alt="Carpet cleaning — bedroom, pet stains" data-cap="Carpet cleaning — bedroom, pet stains" loading="lazy">
+      <img class="gallery-img" src="images/work-15.jpg" data-full="images/work-15-full.jpg" width="519" height="300" alt="Carpet cleaning — living room" data-cap="Carpet cleaning — living room" loading="lazy">
+      <img class="gallery-img" src="images/work-16.jpg" data-full="images/work-16-full.jpg" width="571" height="300" alt="Area rug cleaning" data-cap="Area rug cleaning" loading="lazy">
+      <img class="gallery-img" src="images/work-17.jpg" data-full="images/work-17-full.jpg" width="296" height="300" alt="Carpet cleaning — staircase" data-cap="Carpet cleaning — staircase" loading="lazy">
+      <img class="gallery-img" src="images/work-18.jpg" data-full="images/work-18-full.jpg" width="365" height="300" alt="Carpet cleaning — hallway" data-cap="Carpet cleaning — hallway" loading="lazy">
+      <img class="gallery-img" src="images/work-19.jpg" data-full="images/work-19-full.jpg" width="325" height="300" alt="Area rug cleaning — patterned rug" data-cap="Area rug cleaning — patterned rug" loading="lazy">
+      <img class="gallery-img" src="images/work-20.jpg" data-full="images/work-20-full.jpg" width="334" height="300" alt="Area rug cleaning — patterned rug" data-cap="Area rug cleaning — patterned rug" loading="lazy">
+      <img class="gallery-img" src="images/work-21.jpg" data-full="images/work-21-full.jpg" width="286" height="300" alt="Mattress cleaning — stain removal" data-cap="Mattress cleaning — stain removal" loading="lazy">
+      <img class="gallery-img" src="images/work-22.jpg" data-full="images/work-22-full.jpg" width="318" height="300" alt="Upholstery cleaning — sectional sofa" data-cap="Upholstery cleaning — sectional sofa" loading="lazy">
     </div>
-  </div>
-  <div class="bento svc-row">
-    <article class="tile t-svc" data-service="upholstery"><div><h3>Upholstery</h3><p class="sm">Sofas, sectionals and fabric chairs.</p><details><summary>See prices</summary><div class="prices" data-prices></div></details></div></article>
-    <article class="tile t-svc" data-service="carpet"><div><h3>Carpet</h3><p class="sm">Deep extraction, room by room.</p><details><summary>See prices</summary><div class="prices" data-prices></div></details></div></article>
-    <article class="tile t-svc" data-service="rug"><div><h3>Area rugs</h3><p class="sm">Wool, synthetic and delicate fibers.</p><details><summary>See prices</summary><div class="prices" data-prices></div></details></div></article>
-    <article class="tile t-svc" data-service="mattress"><div><h3>Mattresses</h3><p class="sm">A deeper refresh for better sleep.</p><details><summary>See prices</summary><div class="prices" data-prices></div></details></div></article>
-  </div>
-  <div class="bento svc-row">
-    <article class="tile t-svc s2" data-service="car"><div><h3>Car interiors</h3><p class="sm">Seats, carpet and fabric surfaces, cleaned on-site.</p><details><summary>See prices</summary><div class="prices" data-prices></div></details></div></article>
-    <article class="tile t-svc s2" data-service="custom"><div><h3>Something else</h3><p class="sm">Send a photo and we'll tell you honestly what it needs.</p><details><summary>See prices</summary><div class="prices" data-prices></div></details></div></article>
-  </div>
+  </section>
 
-  
-  
-  <!-- ROW 5: reviews -->
-<div class="bento" id="reviews">
-  <div class="tile s4" style="padding:22px 26px 6px">
-    <div><p class="t-label">REVIEWS</p><h2 style="margin:0">What people say</h2><p class="sm" style="margin-top:6px">22 five-star reviews from real Thumbtack customers.</p></div>
-  </div>
-</div>
-<div class="review-strip">
-  <div class="rev-card"><div class="stars">★★★★★</div><q>Softest did a great job cleaning our sofa. They were professional, punctual and thorough. Going above and beyond by taking it upon themselves to clean the area rug the sectional was on. Highly recommend!</q>Kathy A.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>SoftNest Cleaners was amazing to work with! I had a wool area rug that desperately needed to be cleaned and deodorized due to pet damage. Super quick to respond to messages, was able to pick up and drop off with a 24hr span.</q>Jim K.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>Nick and Katrina did a superb job on our living room-dining room rug. They came with a wagon full of supplies to address it all. They use child and pet friendly materials. The rug looks fantastic.</q>Joyce W.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>Great experience from start to finish! We scheduled a deep carpet cleaning, and they were able to remove stains we thought were permanent. Everything was explained clearly, and they used safe, eco-friendly products.</q>Jeremy J.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>We booked a sectional sofa and rug cleaning, and the results were outstanding. The sofa looks fresh, clean, and stain-free, and the rug came out beautifully. The team was polite, punctual, and very detail-oriented.</q>Daniel O.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>Had a rug with pet urine stains, and SoftNest Cleaners made it look brand new again! No smell, no spots — just clean and soft carpet. Great service and communication!</q>Jasmin H.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>I booked them for mattress and rug cleaning — and they did an amazing job! Everything looks and smells so fresh now. They removed all the stains I thought would never go away.</q>Lenny S.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>We had our sofa, armchair, and 8x10 rug cleaned by SoftNest Cleaners, and the results were amazing! Everything looks fresh, smells great, and feels like new again.</q>Jane W.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>Katie and Nick did a wonderful job on our rug and chair. Their attention to detail means they worked on these items for hours. I can't recommend them enough.</q>Chadia M.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>They did such an awesome job! We had 3 rooms and a sofa cleaned, and everything looks so much better now — fresh, soft, and smells amazing. Totally recommend them!</q>Frank D.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>We booked carpet cleaning after tenants moved out — the carpets were in terrible shape. These guys did an amazing job! Stains are gone, no odors, everything looks and smells fresh.</q>Milania A.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>Today we had our sectional professionally cleaned and the results exceeded our expectations! Now the sofa looks like new — fresh, clean, and with an even, brighter color.</q>Awana C.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>We have a small child and a dog, so it was important that the cleaning be safe and non-toxic. They cleaned the carpets, our sofa, and a mattress — everything looks spotless!</q>Sam A.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>I'm beyond impressed with the carpet cleaning service! The team arrived right on time, worked efficiently, and left my carpets looking brand new.</q>Lisa W.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>Absolutely amazing! Kate and Nick arrived right on time and cleaned my sofa and armchair so well — they look brand new! Such a lovely and professional couple.</q>Jack M.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>I booked upholstery cleaning for my sectional and it came out amazing! The price was very reasonable for the quality of work. The sofa looks fresh, smells great.</q>Jeremy J.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>Outstanding job! They deep cleaned our couch and 5 dining chairs — all stains gone, and everything smells fresh again. Quick and very detail-oriented.</q>Erica N.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>We had our large sectional sofa cleaned — light fabric, after a few years with kids and a dog, it really needed help. Stains are gone, no smell, so much fresher.</q>Mark B.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>My neighbors, who had used SoftNest's services, recommended them to me. The team happily agreed to clean my mattress, dining chairs, and balcony furniture too — everything looks like new!</q>Derek H.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>Excellent service! They did a fantastic job with my upholstery furniture cleaning — the sofa looks brand new, smells fresh, and dried quickly.</q>Connie A.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>Great job! Carpets and mattress look and smell so fresh. The team was on time and very professional. Would hire again!</q>Ailda F.</div>
-  <div class="rev-card"><div class="stars">★★★★★</div><q>Amazing service! I had my sofa deep cleaned and the results were incredible — it looks and smells like new! Professional, quick, and very thorough.</q>Marta B.</div>
-</div>
-
-
-
-  <!-- ROW 6: how it works + good to know -->
-  <div class="bento">
-    <div class="tile t-steps s2">
-      <div><p class="t-label">HOW IT WORKS</p><h2>Four steps, no surprises.</h2></div>
-      <ol>
-        <li><div><b>Send photos</b><span>A phone snapshot is plenty.</span></div></li>
-        <li><div><b>Get an estimate</b><span>Based on material, size and condition.</span></div></li>
-        <li><div><b>Pick a time</b><span>Most visits run one to three hours.</span></div></li>
-        <li><div><b>Live with it</b><span>Dry in four to eight hours.</span></div></li>
-      </ol>
+  <!-- ======================= SERVICES ======================= -->
+  <section class="section" id="services">
+    <div class="section-head reveal">
+      <p class="kicker">What We Clean</p>
+      <h2>Six services, each on its own terms.</h2>
+      <p class="section-sub">Clear prices before we start. Tap “See prices” on any card.</p>
     </div>
-    <div class="tile t-faq s2" id="faq">
-      <div><p class="t-label">GOOD TO KNOW</p><h2>Questions we get a lot.</h2></div>
-      <div style="margin-top:6px">
-        <details open><summary>How long does furniture take to dry?</summary><p>Four to eight hours, depending on fabric, humidity and airflow.</p></details>
-        <details><summary>Are the solutions safe for kids and pets?</summary><p>Yes. We choose products with families in mind and say plainly if a stain needs something stronger.</p></details>
-        <details><summary>Do you remove pet stains and odors?</summary><p>In most cases. Success depends on the age of the stain and how deep it soaked.</p></details>
-        <details><summary>Do I need to move furniture first?</summary><p>Just clear small items and breakables. We work around larger pieces.</p></details>
-        <details><summary>Which areas do you serve?</summary><p>Naperville, Aurora, Oswego, Yorkville, Plainfield, Lisle, Wheaton, Downers Grove and nearby.</p></details>
+    <div class="svc-grid">
+      <article class="svc-card reveal" data-service="upholstery">
+        <h3>Upholstery</h3>
+        <p>Sofas, sectionals and fabric chairs.</p>
+        <details><summary>See prices</summary><div class="prices" data-prices></div></details>
+      </article>
+      <article class="svc-card reveal" data-service="carpet">
+        <h3>Carpet</h3>
+        <p>Deep extraction, room by room.</p>
+        <details><summary>See prices</summary><div class="prices" data-prices></div></details>
+      </article>
+      <article class="svc-card reveal" data-service="rug">
+        <h3>Area rugs</h3>
+        <p>Wool, synthetic and delicate fibers.</p>
+        <details><summary>See prices</summary><div class="prices" data-prices></div></details>
+      </article>
+      <article class="svc-card reveal" data-service="mattress">
+        <h3>Mattresses</h3>
+        <p>A deeper refresh for better sleep.</p>
+        <details><summary>See prices</summary><div class="prices" data-prices></div></details>
+      </article>
+      <article class="svc-card reveal" data-service="car">
+        <h3>Car interiors</h3>
+        <p>Seats, carpet and fabric surfaces, cleaned on-site.</p>
+        <details><summary>See prices</summary><div class="prices" data-prices></div></details>
+      </article>
+      <article class="svc-card reveal" data-service="custom">
+        <h3>Something else</h3>
+        <p>Send a photo and we'll tell you honestly what it needs.</p>
+        <details><summary>See prices</summary><div class="prices" data-prices></div></details>
+      </article>
+    </div>
+  </section>
+
+  <!-- ======================= REVIEWS ======================= -->
+  <section class="section section-alt" id="reviews">
+    <div class="section-head reveal">
+      <p class="kicker">Reviews</p>
+      <h2>What people say</h2>
+      <p class="section-sub">22 five-star reviews from real Thumbtack customers.</p>
+    </div>
+    <div class="rev-wrap reveal">
+      <div class="review-strip" id="reviewStrip" tabindex="0" aria-label="Customer reviews, scroll horizontally">
+        <div class="rev-card"><div class="stars">★★★★★</div><q>SoftNest did a great job cleaning our sofa. They were professional, punctual and thorough. Going above and beyond by taking it upon themselves to clean the area rug the sectional was on. Highly recommend!</q><span class="rev-name">Kathy A.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>SoftNest Cleaners was amazing to work with! I had a wool area rug that desperately needed to be cleaned and deodorized due to pet damage. Super quick to respond to messages, was able to pick up and drop off with a 24hr span.</q><span class="rev-name">Jim K.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>Nick and Katrina did a superb job on our living room-dining room rug. They came with a wagon full of supplies to address it all. They use child and pet friendly materials. The rug looks fantastic.</q><span class="rev-name">Joyce W.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>Great experience from start to finish! We scheduled a deep carpet cleaning, and they were able to remove stains we thought were permanent. Everything was explained clearly, and they used safe, eco-friendly products.</q><span class="rev-name">Jeremy J.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>We booked a sectional sofa and rug cleaning, and the results were outstanding. The sofa looks fresh, clean, and stain-free, and the rug came out beautifully. The team was polite, punctual, and very detail-oriented.</q><span class="rev-name">Daniel O.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>Had a rug with pet urine stains, and SoftNest Cleaners made it look brand new again! No smell, no spots — just clean and soft carpet. Great service and communication!</q><span class="rev-name">Jasmin H.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>I booked them for mattress and rug cleaning — and they did an amazing job! Everything looks and smells so fresh now. They removed all the stains I thought would never go away.</q><span class="rev-name">Lenny S.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>We had our sofa, armchair, and 8x10 rug cleaned by SoftNest Cleaners, and the results were amazing! Everything looks fresh, smells great, and feels like new again.</q><span class="rev-name">Jane W.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>Katie and Nick did a wonderful job on our rug and chair. Their attention to detail means they worked on these items for hours. I can't recommend them enough.</q><span class="rev-name">Chadia M.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>They did such an awesome job! We had 3 rooms and a sofa cleaned, and everything looks so much better now — fresh, soft, and smells amazing. Totally recommend them!</q><span class="rev-name">Frank D.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>We booked carpet cleaning after tenants moved out — the carpets were in terrible shape. These guys did an amazing job! Stains are gone, no odors, everything looks and smells fresh.</q><span class="rev-name">Milania A.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>Today we had our sectional professionally cleaned and the results exceeded our expectations! Now the sofa looks like new — fresh, clean, and with an even, brighter color.</q><span class="rev-name">Awana C.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>We have a small child and a dog, so it was important that the cleaning be safe and non-toxic. They cleaned the carpets, our sofa, and a mattress — everything looks spotless!</q><span class="rev-name">Sam A.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>I'm beyond impressed with the carpet cleaning service! The team arrived right on time, worked efficiently, and left my carpets looking brand new.</q><span class="rev-name">Lisa W.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>Absolutely amazing! Kate and Nick arrived right on time and cleaned my sofa and armchair so well — they look brand new! Such a lovely and professional couple.</q><span class="rev-name">Jack M.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>I booked upholstery cleaning for my sectional and it came out amazing! The price was very reasonable for the quality of work. The sofa looks fresh, smells great.</q><span class="rev-name">Jeremy J.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>Outstanding job! They deep cleaned our couch and 5 dining chairs — all stains gone, and everything smells fresh again. Quick and very detail-oriented.</q><span class="rev-name">Erica N.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>We had our large sectional sofa cleaned — light fabric, after a few years with kids and a dog, it really needed help. Stains are gone, no smell, so much fresher.</q><span class="rev-name">Mark B.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>My neighbors, who had used SoftNest's services, recommended them to me. The team happily agreed to clean my mattress, dining chairs, and balcony furniture too — everything looks like new!</q><span class="rev-name">Derek H.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>Excellent service! They did a fantastic job with my upholstery furniture cleaning — the sofa looks brand new, smells fresh, and dried quickly.</q><span class="rev-name">Connie A.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>Great job! Carpets and mattress look and smell so fresh. The team was on time and very professional. Would hire again!</q><span class="rev-name">Ailda F.</span></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><q>Amazing service! I had my sofa deep cleaned and the results were incredible — it looks and smells like new! Professional, quick, and very thorough.</q><span class="rev-name">Marta B.</span></div>
+      </div>
+      <div class="rev-nav">
+        <button type="button" class="rev-btn" id="revPrev" aria-label="Previous reviews">&#8249;</button>
+        <button type="button" class="rev-btn" id="revNext" aria-label="Next reviews">&#8250;</button>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ROW 7: form -->
-  <div class="bento" id="quote">
-    <div class="tile t-form s4">
-      <div><p class="t-label">GET STARTED</p><h2>Get your free quote</h2>
-      <p class="sm" style="margin-bottom:16px">Usually answered the same day.</p></div>
+  <!-- ======================= HOW IT WORKS + FAQ ======================= -->
+  <section class="section" id="faq">
+    <div class="faq-grid">
+      <div class="steps reveal">
+        <p class="kicker">How It Works</p>
+        <h2>Four steps, no surprises.</h2>
+        <ol class="step-list">
+          <li><span class="step-n">01</span><div><b>Send photos</b><span>A phone snapshot is plenty.</span></div></li>
+          <li><span class="step-n">02</span><div><b>Get an estimate</b><span>Based on material, size and condition.</span></div></li>
+          <li><span class="step-n">03</span><div><b>Pick a time</b><span>Most visits run one to three hours.</span></div></li>
+          <li><span class="step-n">04</span><div><b>Live with it</b><span>Dry in four to eight hours.</span></div></li>
+        </ol>
+      </div>
+      <div class="faq reveal">
+        <p class="kicker">Good To Know</p>
+        <h2>Questions we get a lot.</h2>
+        <div class="faq-list">
+          <details open><summary>How long does furniture take to dry?</summary><p>Four to eight hours, depending on fabric, humidity and airflow.</p></details>
+          <details><summary>Are the solutions safe for kids and pets?</summary><p>Yes. We choose products with families in mind and say plainly if a stain needs something stronger.</p></details>
+          <details><summary>Do you remove pet stains and odors?</summary><p>In most cases. Success depends on the age of the stain and how deep it soaked.</p></details>
+          <details><summary>Do I need to move furniture first?</summary><p>Just clear small items and breakables. We work around larger pieces.</p></details>
+          <details><summary>Which areas do you serve?</summary><p><a href="/naperville.html">Naperville</a>, <a href="/aurora.html">Aurora</a>, <a href="/oswego.html">Oswego</a>, <a href="/yorkville.html">Yorkville</a>, <a href="/plainfield.html">Plainfield</a>, <a href="/lisle.html">Lisle</a>, <a href="/wheaton.html">Wheaton</a>, <a href="/downers-grove.html">Downers Grove</a> and nearby.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= SERVICE AREAS ======================= -->
+  <section class="section section-alt" id="areas">
+    <div class="section-head reveal">
+      <p class="kicker">Service Areas</p>
+      <h2>Eight suburbs, one standard of clean.</h2>
+      <p class="section-sub">Pick your town for local details, scheduling notes and a free quote.</p>
+    </div>
+    <div class="areas-grid reveal">
+      <a class="area-card" href="/naperville.html"><b>Naperville</b><span>Our home base, along the Riverwalk</span></a>
+      <a class="area-card" href="/aurora.html"><b>Aurora</b><span>Historic homes to new builds on the Fox River</span></a>
+      <a class="area-card" href="/oswego.html"><b>Oswego</b><span>Fast-growing neighborhoods, young families</span></a>
+      <a class="area-card" href="/yorkville.html"><b>Yorkville</b><span>Small-town feel, new construction</span></a>
+      <a class="area-card" href="/plainfield.html"><b>Plainfield</b><span>Historic downtown, family subdivisions</span></a>
+      <a class="area-card" href="/lisle.html"><b>Lisle</b><span>The Arboretum Village — pollen season pros</span></a>
+      <a class="area-card" href="/wheaton.html"><b>Wheaton</b><span>County seat, historic &amp; mid-century homes</span></a>
+      <a class="area-card" href="/downers-grove.html"><b>Downers Grove</b><span>Established neighborhoods, mature trees</span></a>
+    </div>
+    <p class="areas-note reveal">Somewhere nearby? Call <a href="tel:+13313022234">(331) 302-2234</a> — chances are we cover your street.</p>
+  </section>
+
+  <!-- ======================= QUOTE ======================= -->
+  <section class="section" id="quote">
+    <div class="quote-box reveal">
+      <div class="section-head">
+        <p class="kicker">Get Started</p>
+        <h2>Get your free quote</h2>
+        <p class="section-sub">Usually answered the same day.</p>
+      </div>
       <form id="quoteForm" action="/api/quote" method="POST" enctype="multipart/form-data" novalidate>
         <div class="two">
           <div class="fg"><label for="firstName">First name *</label><input id="firstName" name="firstName" required pattern=".*\S.*" placeholder="John"></div>
-          <div class="fg"><label for="lastName">Last name *</label><input id="lastName" name="lastName" required pattern=".*\S.*" placeholder="Smith"></div></div>
+          <div class="fg"><label for="lastName">Last name <span class="opt">(optional)</span></label><input id="lastName" name="lastName" placeholder="Smith"></div>
+        </div>
         <div class="two">
           <div class="fg"><label for="phone">Phone *</label><input id="phone" name="phone" type="tel" required pattern="\(\d{3}\) \d{3}-\d{4}" title="Enter a full 10-digit phone number" placeholder="(630) 555-1234"></div>
-          <div class="fg"><label for="email">Email *</label><input id="email" name="email" type="email" required pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}" title="Enter a valid email address" placeholder="john@email.com"></div></div>
+          <div class="fg"><label for="email">Email <span class="opt">(optional)</span></label><input id="email" name="email" type="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}" title="Enter a valid email address" placeholder="john@email.com"></div>
+        </div>
         <div class="two">
           <div class="fg"><label for="zip">ZIP *</label><input id="zip" name="zip" required inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" title="Enter a 5-digit ZIP code" placeholder="60540"></div>
           <div class="fg"><label for="service">Service *</label><select id="service" name="service" required>
             <option value="upholstery">Upholstery</option><option value="carpet">Carpet</option>
             <option value="rug">Area rug</option><option value="mattress">Mattress</option>
             <option value="car">Car interior</option><option value="other">Other</option>
-          </select></div></div>
+          </select></div>
+        </div>
         <div class="fg"><label for="date">Preferred date</label><input id="date" name="date" type="date"></div>
         <div class="fg"><label for="message">What needs cleaning?</label><textarea id="message" name="message" rows="2" placeholder="A three-seat sofa and the stairs carpet&hellip;"></textarea></div>
         <div class="fg"><label for="photos">Photos (optional, up to 5)</label><input id="photos" name="photos[]" type="file" accept="image/*" multiple></div>
         <div class="hp" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
         <div class="consent"><input type="checkbox" id="consent" name="consent" required><label for="consent">I agree to be contacted about my request. *</label></div>
 
-
-       
         <button type="submit" class="btn-sub">Send my request</button>
-
 
         <p class="form-msg" id="formMsg" role="status"></p>
       </form>
     </div>
-  </div>
+  </section>
 
-  <div class="bento">
-    <div class="tile t-contact s2">
-      <div><h2>Ready to refresh your space?</h2><p>Free estimates, honest answers, no pressure.</p></div>
-      <div style="margin-top:16px">
+  <!-- ======================= CONTACT ======================= -->
+  <section class="section contact">
+    <div class="contact-inner reveal">
+      <p class="kicker">Contact</p>
+      <h2>Ready to refresh your space?</h2>
+      <p class="section-sub">Free estimates, honest answers, no pressure.</p>
+      <div class="contact-links">
         <a href="tel:+13313022234">(331) 302-2234</a>
         <a href="mailto:help@softnestcleaners.com">help@softnestcleaners.com</a>
-        <p>Mon–Fri, 8am–5pm</p>
+        <p class="contact-hours">Mon–Fri, 8am–5pm</p>
       </div>
     </div>
-    <div class="tile img s2 logo-cta"><img loading="lazy" width="460" height="260" src="images/logo-full.png" alt="SoftNest Cleaners — Expert clean. Family-safe. Always softnest."></div>
-  </div>
+  </section>
 
-  </main>
+</main>
 
-  <div class="foot">
-    <span>© 2026 SoftNest Cleaners · Naperville, IL</span>
-    <span>Upholstery &amp; carpet care for Chicagoland homes</span>
-  </div>
-
-</div>
+<footer class="foot">
+  <span>© 2026 SoftNest Cleaners · Naperville, IL</span>
+  <span>Upholstery &amp; carpet care for Chicagoland homes</span>
+</footer>
 
 <button type="button" id="toTop" class="to-top" aria-label="Back to top">&#8593;</button>
 
@@ -267,6 +447,57 @@
   <button type="button" class="lb-btn lb-next" aria-label="Next photo">&#8250;</button>
   <div class="lb-cap"></div>
 </div>
+
+<!-- ======================= ROOM ESTIMATOR UI ======================= -->
+<div class="room-modal" id="roomModal" role="dialog" aria-modal="true" aria-labelledby="roomModalTitle" aria-hidden="true">
+  <div class="room-modal-card">
+    <button type="button" class="room-modal-close" id="roomModalClose" aria-label="Close">&times;</button>
+    <p class="kicker">Interactive Estimator</p>
+    <h3 id="roomModalTitle">Item</h3>
+    <div class="prices room-modal-prices" id="roomModalPrices"></div>
+    <p class="p-note" id="roomModalNote"></p>
+  </div>
+</div>
+
+<button type="button" class="cart-btn" id="cartBtn" aria-label="Open your estimate">
+  <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.5" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 3h2.2l2.3 12.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20.6 7H6"/></svg>
+  <span class="cart-count" id="cartCount">0</span>
+</button>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Your estimate">
+  <div class="cart-head">
+    <h3>Your estimate</h3>
+    <button type="button" class="cart-close" id="cartClose" aria-label="Close estimate">&times;</button>
+  </div>
+  <div class="cart-body">
+    <p class="cart-empty" id="cartEmpty">Nothing added yet — tap a marker in the room and pick what needs cleaning.</p>
+    <div class="cart-items" id="cartItems"></div>
+    <form id="roomForm" action="/api/quote" method="POST" enctype="multipart/form-data" novalidate>
+      <input type="hidden" name="service" value="other">
+      <div class="two">
+        <div class="fg"><label for="rmFirstName">First name *</label><input id="rmFirstName" name="firstName" required pattern=".*\S.*" placeholder="John"></div>
+        <div class="fg"><label for="rmLastName">Last name <span class="opt">(optional)</span></label><input id="rmLastName" name="lastName" placeholder="Smith"></div>
+      </div>
+      <div class="fg"><label for="rmPhone">Phone *</label><input id="rmPhone" name="phone" type="tel" required pattern="\(\d{3}\) \d{3}-\d{4}" title="Enter a full 10-digit phone number" placeholder="(630) 555-1234"></div>
+      <div class="fg"><label for="rmEmail">Email <span class="opt">(optional)</span></label><input id="rmEmail" name="email" type="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}" title="Enter a valid email address" placeholder="john@email.com"></div>
+      <div class="two">
+        <div class="fg"><label for="rmZip">ZIP *</label><input id="rmZip" name="zip" required inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" title="Enter a 5-digit ZIP code" placeholder="60540"></div>
+        <div class="fg"><label for="rmDate">Preferred date</label><input id="rmDate" name="date" type="date"></div>
+      </div>
+      <div class="fg"><label for="rmMessage">Message (optional)</label><textarea id="rmMessage" name="message" rows="2" placeholder="Anything we should know&hellip;"></textarea></div>
+      <div class="hp" aria-hidden="true"><label for="rmWebsite">Leave this field empty</label><input id="rmWebsite" name="website" tabindex="-1" autocomplete="off"></div>
+      <div class="consent"><input type="checkbox" id="rmConsent" name="consent" required><label for="rmConsent">I agree to be contacted about my request. *</label></div>
+      <button type="submit" class="btn-sub">Send my request</button>
+      <p class="form-msg" id="roomFormMsg" role="status"></p>
+    </form>
+  </div>
+  <div class="cart-foot">
+    <div class="cart-total-row"><span>Estimated total</span><b id="cartTotal">$0</b></div>
+    <p class="cart-note" id="cartNote">Includes items priced “from” or “on request” — final quote confirmed before work starts.</p>
+    <button type="button" class="btn-sub" id="cartBook" disabled>Book the cleaning</button>
+  </div>
+</aside>
 
 <script src="prices.js"></script>
 <script src="script.js"></script>
