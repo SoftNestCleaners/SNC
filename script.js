@@ -361,6 +361,10 @@
     var roomForm = document.getElementById('roomForm');
     var roomFormMsg = document.getElementById('roomFormMsg');
     var lastFocus = null;
+    var goToRoomBtn = document.getElementById('goToRoomBtn');
+    if (goToRoomBtn) {
+     goToRoomBtn.addEventListener('click', closeDrawer);
+    }
 
     var escHtml = function (s) {
       return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
