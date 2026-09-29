@@ -70,6 +70,8 @@ export async function onRequestPost({ request, env, waitUntil }) {
   }
 
   /* ---------- validation ---------- */
+  /* Required (kept in sync with index.html): firstName, phone, zip, service.
+     lastName and email are optional — fewer required fields, more leads. */
   const firstName = cap(form.get('firstName'), 60);
   const lastName  = cap(form.get('lastName'), 60);
   const phone     = cap(form.get('phone'), 30);
@@ -79,10 +81,10 @@ export async function onRequestPost({ request, env, waitUntil }) {
   const date      = cap(form.get('date'), 20) || 'Not specified';
   const message   = cap(form.get('message'), 2000) || 'No message';
 
-  for (const [name, value] of Object.entries({ firstName, lastName, phone, email, zip, service })) {
+  for (const [name, value] of Object.entries({ firstName, phone, zip, service })) {
     if (!value) return json({ ok: false, error: `Field '${name}' is required` }, 400);
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
     return json({ ok: false, error: 'Please enter a valid email address' }, 400);
   }
   if (!/^\d{5}(-\d{4})?$/.test(zip)) {
@@ -94,9 +96,9 @@ export async function onRequestPost({ request, env, waitUntil }) {
   /* ---------- compose ---------- */
   const text =
     `🆕 <b>NEW SOFTNEST LEAD</b>\n\n` +
-    `👤 <b>Name:</b> ${esc(firstName)} ${esc(lastName)}\n` +
+    `👤 <b>Name:</b> ${esc(firstName)}${lastName ? ' ' + esc(lastName) : ''}\n` +
     `📞 <b>Phone:</b> ${esc(phone)}\n` +
-    `📧 <b>Email:</b> ${esc(email)}\n` +
+    `📧 <b>Email:</b> ${email ? esc(email) : 'not provided'}\n` +
     `📍 <b>ZIP:</b> ${esc(zip)}\n\n` +
     `🛠 <b>Service:</b> ${esc(serviceName)}\n` +
     `📅 <b>Preferred date:</b> ${esc(date)}\n\n` +
@@ -152,7 +154,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
       body: JSON.stringify({
         from: env.MAIL_FROM,
         to: [env.ADMIN_EMAIL],
-        reply_to: email,
+        reply_to: email || undefined,
         subject: `New quote request — ${firstName} ${lastName}`,
         text: plain,
       }),
