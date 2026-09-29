@@ -589,7 +589,10 @@
     cartBtn.addEventListener('click', openDrawer);
     cartClose.addEventListener('click', closeDrawer);
     cartOverlay.addEventListener('click', closeDrawer);
-
+    var goToRoomBtn = document.getElementById('goToRoomBtn');
+    if (goToRoomBtn) {
+     goToRoomBtn.addEventListener('click', closeDrawer);
+    }
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape') return;
       if (roomModal.classList.contains('show')) closeModal();
@@ -651,10 +654,7 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending…';
       roomFormMsg.className = 'form-msg';
-      var goToRoomBtn = document.getElementById('goToRoomBtn');
-      if (goToRoomBtn) {
-        goToRoomBtn.addEventListener('click', closeDrawer);
-      }
+      
       var fd = new FormData(roomForm);
       var itemsStr = cart.map(function (it) { return it.name + ' ' + it.price; }).join('; ');
       var userMsg = (document.getElementById('rmMessage').value || '').trim();
