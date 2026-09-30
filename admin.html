@@ -222,7 +222,7 @@ const dropZone = document.getElementById('dropZone');
 const pendingThumbs = document.getElementById('pendingThumbs');
 const uploadBtn = document.getElementById('uploadBtn');
 
-dropZone.addEventListener('click', ()=> fileInput.click());
+
 fileInput.addEventListener('change', e=>{
   selectedFiles = Array.from(e.target.files);
   pendingThumbs.innerHTML = '';
