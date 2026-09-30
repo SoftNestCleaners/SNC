@@ -119,15 +119,17 @@
   });
 
   /* ---- photo lightbox for the real-work gallery ---- */
-  var galleryImgs = Array.prototype.slice.call(document.querySelectorAll('img.gallery-img'));
-  var lightbox = document.getElementById('lightbox');
-  if (lightbox && galleryImgs.length) {
+    var lightbox = document.getElementById('lightbox');
+  var galleryImgs = [];
+  var curIdx = 0;
+
+  if (lightbox) {
     var lbImg = lightbox.querySelector('.lb-img');
     var lbCap = lightbox.querySelector('.lb-cap');
-    var curIdx = 0;
 
     function showImg() {
       var el = galleryImgs[curIdx];
+      if (!el) return;
       var full = el.getAttribute('data-full');
       lbImg.src = full || el.currentSrc || el.src;
       lbImg.alt = el.alt || '';
@@ -148,9 +150,15 @@
     function nextImg() { curIdx = (curIdx + 1) % galleryImgs.length; showImg(); }
     function prevImg() { curIdx = (curIdx - 1 + galleryImgs.length) % galleryImgs.length; showImg(); }
 
-    galleryImgs.forEach(function (img, i) {
-      img.addEventListener('click', function () { openLightbox(i); });
-    });
+    function refreshGalleryImgs() {
+      galleryImgs = Array.prototype.slice.call(document.querySelectorAll('img.gallery-img'));
+      galleryImgs.forEach(function (img, i) {
+        img.addEventListener('click', function () { openLightbox(i); });
+      });
+    }
+    refreshGalleryImgs();
+    window.refreshGalleryImgs = refreshGalleryImgs;
+
     lightbox.querySelector('.lb-close').addEventListener('click', closeLightbox);
     lightbox.querySelector('.lb-next').addEventListener('click', nextImg);
     lightbox.querySelector('.lb-prev').addEventListener('click', prevImg);
@@ -162,7 +170,6 @@
       if (e.key === 'ArrowLeft') prevImg();
     });
 
-    /* basic swipe support on mobile */
     var touchX = null;
     lightbox.addEventListener('touchstart', function (e) { touchX = e.changedTouches[0].clientX; });
     lightbox.addEventListener('touchend', function (e) {
@@ -172,6 +179,7 @@
       touchX = null;
     });
   }
+
 
   /* ---- back to top ---- */
   var toTop = document.getElementById('toTop');
