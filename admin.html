@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SoftNest Cleaners — Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* Admin-only additions — everything else (colors, fonts, buttons, form
+   fields) comes straight from style.css so this page stays in sync with
+   the live site automatically. Only UI patterns that don't exist on the
+   public site (lock screen, tabs, review rows, thumbnail grids) live here. */
+
+body{min-height:100vh}
+.admin-wrap{max-width:760px;margin:0 auto;padding:40px 5vw 100px}
+.admin-wrap h1{font-size:clamp(1.5rem,4vw,2rem);margin-bottom:6px}
+.admin-sub{color:var(--muted);font-size:.92rem;margin-bottom:28px}
+
+.lock{max-width:340px;margin:100px auto 0;text-align:center;padding:0 5vw}
+.lock .fg{text-align:left;margin-top:18px}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:18px}
+
+.tabs{display:flex;gap:10px;margin-bottom:22px}
+.tabs button{
+  flex:1;padding:12px;border-radius:var(--radius);border:1px solid var(--line);
+  background:var(--card);font-family:inherit;font-weight:500;font-size:.8rem;
+  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;color:var(--muted);transition:.2s;
+}
+.tabs button.active{background:var(--accent);color:#191411;border-color:var(--accent)}
+.hidden{display:none}
+
+.btn-danger{background:transparent;border:1px solid rgba(224,123,90,.4);color:var(--err)}
+.btn-danger:hover{background:var(--err);color:#191411;border-color:var(--err)}
+.btn-sm{padding:7px 16px;font-size:.68rem}
+
+.review-row{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line);align-items:flex-start}
+.review-row:first-child{border-top:0}
+.review-row .rbody{flex:1}
+.review-row .name{font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.review-row .text{font-size:.9rem;margin-top:5px;color:var(--text)}
+
+.drop{border:1.5px dashed var(--line);border-radius:var(--radius);padding:26px;text-align:center;cursor:pointer;background:var(--bg);display:block}
+.drop input{display:none}
+.thumb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-top:16px}
+.thumb-grid .cell{position:relative}
+.thumb-grid img,.pending-grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;border:1px solid var(--line)}
+.thumb-grid .del{
+  position:absolute;top:5px;right:5px;background:rgba(19,17,16,.85);color:var(--err);
+  border:1px solid var(--err);border-radius:50%;width:24px;height:24px;font-size:.9rem;line-height:1;cursor:pointer;
+}
+.pending-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;margin-top:14px}
+
+.status{margin-top:14px;font-size:.86rem;white-space:pre-wrap}
+.status .ok{color:var(--ok)}
+.status .err{color:var(--err)}
+</style>
+</head>
+<body>
+
+<div id="lockScreen" class="lock">
+  <h1>Admin</h1>
+  <p class="admin-sub">Enter the admin key to continue.</p>
+  <div class="fg"><input type="password" id="adminKeyInput" placeholder="Admin key"></div>
+  <button class="btn btn-amber" style="width:100%" onclick="unlock()">Unlock</button>
+  <p class="status" id="lockStatus"></p>
+</div>
+
+<div id="mainScreen" class="admin-wrap hidden">
+  <h1>SoftNest Cleaners — Admin</h1>
+  <p class="admin-sub">Changes here go straight to the live site (usually within about a minute).</p>
+
+  <div class="tabs">
+    <button id="tabReviewsBtn" class="active" onclick="setTab('reviews')">Reviews</button>
+    <button id="tabGalleryBtn" onclick="setTab('gallery')">Gallery</button>
+  </div>
+
+  <div id="reviewsPanel">
+    <div class="panel">
+      <div class="fg"><label for="rName">Name</label><input id="rName" placeholder="e.g. Sam A."></div>
+      <div class="fg"><label for="rText">Review text</label><textarea id="rText" rows="3" placeholder="What the customer said…"></textarea></div>
+      <button class="btn btn-amber" id="addReviewBtn" onclick="addReview()">Add review</button>
+      <div class="status" id="reviewStatus"></div>
+    </div>
+    <div class="panel">
+      <div id="reviewList">Loading…</div>
+    </div>
+  </div>
+
+  <div id="galleryPanel" class="hidden">
+    <div class="panel">
+      <label class="drop" id="dropZone">
+        <input type="file" id="fileInput" accept="image/*" multiple>
+        <div id="dropHint">Tap to choose one or more photos</div>
+        <div class="pending-grid" id="pendingThumbs"></div>
+      </label>
+      <div class="fg" style="margin-top:16px">
+        <label for="pAlt">Caption (applies to all selected photos)</label>
+        <input id="pAlt" placeholder="e.g. Carpet cleaning — living room">
+      </div>
+      <button class="btn btn-amber" id="uploadBtn" onclick="uploadPhotos()" disabled>Upload</button>
+      <div class="status" id="photoStatus"></div>
+    </div>
+    <div class="panel">
+      <div id="galleryGrid" class="thumb-grid">Loading…</div>
+    </div>
+  </div>
+</div>
+
+<script>
+let adminKey = '';
+let selectedFiles = [];
+
+function unlock(){
+  const val = document.getElementById('adminKeyInput').value.trim();
+  if(!val) return;
+  adminKey = val;
+  document.getElementById('lockScreen').classList.add('hidden');
+  document.getElementById('mainScreen').classList.remove('hidden');
+  loadReviews();
+  loadGallery();
+}
+document.getElementById('adminKeyInput').addEventListener('keydown', e=>{ if(e.key==='Enter') unlock(); });
+
+function setTab(tab){
+  document.getElementById('tabReviewsBtn').classList.toggle('active', tab==='reviews');
+  document.getElementById('tabGalleryBtn').classList.toggle('active', tab==='gallery');
+  document.getElementById('reviewsPanel').classList.toggle('hidden', tab!=='reviews');
+  document.getElementById('galleryPanel').classList.toggle('hidden', tab!=='gallery');
+}
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+async function api(payload){
+  const res = await fetch('/api/admin', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...payload, adminKey })
+  });
+  const data = await res.json().catch(()=>({}));
+  if(!res.ok || data.error) throw new Error(data.error || `HTTP ${res.status}`);
+  return data;
+}
+
+async function loadReviews(){
+  const res = await fetch('/reviews.json?_=' + Date.now());
+  const data = await res.json();
+  const list = document.getElementById('reviewList');
+  if(!data.items.length){ list.innerHTML = '<p class="admin-sub">No reviews yet.</p>'; return; }
+  list.innerHTML = data.items.map(r => `
+    <div class="review-row">
+      <div class="rbody">
+        <div class="name">${esc(r.name)}</div>
+        <div class="text">${esc(r.text)}</div>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="deleteReview(${r.id})">Delete</button>
+    </div>
+  `).join('');
+}
+
+async function addReview(){
+  const name = document.getElementById('rName').value.trim();
+  const text = document.getElementById('rText').value.trim();
+  const statusEl = document.getElementById('reviewStatus');
+  if(!name || !text){ statusEl.innerHTML = '<span class="err">Name and review text are both required.</span>'; return; }
+  document.getElementById('addReviewBtn').disabled = true;
+  statusEl.textContent = 'Saving…';
+  try{
+    await api({ mode: 'addReview', name, text });
+    statusEl.innerHTML = '<span class="ok">✓ Added.</span>';
+    document.getElementById('rName').value = '';
+    document.getElementById('rText').value = '';
+    loadReviews();
+  } catch(err){
+    statusEl.innerHTML = `<span class="err">✗ ${esc(err.message)}</span>`;
+  }
+  document.getElementById('addReviewBtn').disabled = false;
+}
+
+async function deleteReview(id){
+  if(!confirm('Delete this review?')) return;
+  try{
+    await api({ mode: 'deleteReview', id });
+    loadReviews();
+  } catch(err){
+    alert('Failed: ' + err.message);
+  }
+}
+
+async function loadGallery(){
+  const res = await fetch('/gallery.json?_=' + Date.now());
+  const data = await res.json();
+  const grid = document.getElementById('galleryGrid');
+  if(!data.items.length){ grid.innerHTML = '<p class="admin-sub">No photos yet.</p>'; return; }
+  grid.innerHTML = data.items.sort((a,b)=>a.num-b.num).map(p => {
+    const n = String(p.num).padStart(2,'0');
+    return `
+      <div class="cell">
+        <img src="images/work-${n}.jpg?_=${Date.now()}" alt="${esc(p.alt)}">
+        <button class="del" onclick="deletePhoto(${p.num})" title="Delete">&times;</button>
+      </div>
+    `;
+  }).join('');
+}
+
+async function deletePhoto(num){
+  if(!confirm('Delete this photo? This cannot be undone.')) return;
+  try{
+    await api({ mode: 'deletePhoto', num });
+    loadGallery();
+  } catch(err){
+    alert('Failed: ' + err.message);
+  }
+}
+
+const fileInput = document.getElementById('fileInput');
+const dropZone = document.getElementById('dropZone');
+const pendingThumbs = document.getElementById('pendingThumbs');
+const uploadBtn = document.getElementById('uploadBtn');
+
+dropZone.addEventListener('click', ()=> fileInput.click());
+fileInput.addEventListener('change', e=>{
+  selectedFiles = Array.from(e.target.files);
+  pendingThumbs.innerHTML = '';
+  selectedFiles.forEach(f=>{
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(f);
+    pendingThumbs.appendChild(img);
+  });
+  document.getElementById('dropHint').textContent = selectedFiles.length
+    ? `${selectedFiles.length} photo(s) selected — tap to change`
+    : 'Tap to choose one or more photos';
+  uploadBtn.disabled = selectedFiles.length === 0;
+});
+
+function resizeImage(file, maxDim, quality){
+  return new Promise((resolve, reject)=>{
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = ()=> { img.src = reader.result; };
+    reader.onerror = reject;
+    img.onload = ()=>{
+      let { width, height } = img;
+      if (width > height && width > maxDim) { height = Math.round(height * maxDim / width); width = maxDim; }
+      else if (height > maxDim) { width = Math.round(width * maxDim / height); height = maxDim; }
+      const canvas = document.createElement('canvas');
+      canvas.width = width; canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadPhotos(){
+  if(!selectedFiles.length) return;
+  uploadBtn.disabled = true;
+  const alt = document.getElementById('pAlt').value.trim() || 'Cleaning result';
+  const statusEl = document.getElementById('photoStatus');
+  statusEl.innerHTML = '';
+
+  for(let i=0; i<selectedFiles.length; i++){
+    const file = selectedFiles[i];
+    statusEl.innerHTML += `Uploading ${i+1} / ${selectedFiles.length}…\n`;
+    try{
+      const thumb = await resizeImage(file, 600, 0.7);
+      const full = await resizeImage(file, 1600, 0.82);
+      const data = await api({ mode: 'addPhoto', thumb, full, alt, cap: alt });
+      statusEl.innerHTML += `<span class="ok">✓ Photo work-${String(data.num).padStart(2,'0')} added</span>\n`;
+    } catch(err){
+      statusEl.innerHTML += `<span class="err">✗ Failed: ${esc(err.message)}</span>\n`;
+    }
+  }
+  statusEl.innerHTML += '\nDone. The live site updates in about a minute.';
+  selectedFiles = [];
+  pendingThumbs.innerHTML = '';
+  document.getElementById('dropHint').textContent = 'Tap to choose one or more photos';
+  document.getElementById('pAlt').value = '';
+  uploadBtn.disabled = true;
+  loadGallery();
+}
+</script>
+</body>
+</html>
