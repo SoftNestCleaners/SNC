@@ -1,24 +1,24 @@
 {
-  "nextNum": 25,
+  "nextNum": 26,
   "items": [
     {
       "num": 1,
-      "alt": "Carpet cleaning ÃÂ¢ÃÂÃÂ living room",
-      "cap": "Carpet cleaning ÃÂ¢ÃÂÃÂ living room",
+      "alt": "Carpet cleaning ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ living room",
+      "cap": "Carpet cleaning ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ living room",
       "w": 307,
       "h": 300
     },
     {
       "num": 2,
-      "alt": "Carpet cleaning ÃÂ¢ÃÂÃÂ staircase",
-      "cap": "Carpet cleaning ÃÂ¢ÃÂÃÂ staircase",
+      "alt": "Carpet cleaning ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ staircase",
+      "cap": "Carpet cleaning ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ staircase",
       "w": 298,
       "h": 300
     },
     {
       "num": 3,
-      "alt": "Carpet cleaning ÃÂ¢ÃÂÃÂ closet area",
-      "cap": "Carpet cleaning ÃÂ¢ÃÂÃÂ closet area",
+      "alt": "Carpet cleaning ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ closet area",
+      "cap": "Carpet cleaning ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ closet area",
       "w": 297,
       "h": 300
     },
@@ -52,8 +52,8 @@
     },
     {
       "num": 8,
-      "alt": "Carpet cleaning ÃÂ¢ÃÂÃÂ bedroom",
-      "cap": "Carpet cleaning ÃÂ¢ÃÂÃÂ bedroom",
+      "alt": "Carpet cleaning ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ bedroom",
+      "cap": "Carpet cleaning ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ bedroom",
       "w": 300,
       "h": 300
     },
@@ -80,8 +80,8 @@
     },
     {
       "num": 12,
-      "alt": "Area rug cleaning ÃÂ¢ÃÂÃÂ stairs",
-      "cap": "Area rug cleaning ÃÂ¢ÃÂÃÂ stairs",
+      "alt": "Area rug cleaning ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ stairs",
+      "cap": "Area rug cleaning ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ stairs",
       "w": 300,
       "h": 300
     },
@@ -157,6 +157,13 @@
     },
     {
       "num": 24,
+      "alt": "Upholstery cleaning",
+      "cap": "Upholstery cleaning",
+      "w": 300,
+      "h": 300
+    },
+    {
+      "num": 25,
       "alt": "Upholstery cleaning",
       "cap": "Upholstery cleaning",
       "w": 300,
