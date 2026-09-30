@@ -22,27 +22,27 @@
  */
 
 export async function onRequestPost(context) {
-  const { request, env } = context;
-
-  for (const name of ["GITHUB_TOKEN", "GITHUB_REPO", "ADMIN_KEY"]) {
-    if (!env[name]) return json({ error: `Server is missing ${name}.` }, 500);
-  }
-  const branch = env.GITHUB_BRANCH || "main";
-
-  let body;
   try {
-    body = await request.json();
-  } catch {
-    return json({ error: "Body must be JSON." }, 400);
-  }
+    const { request, env } = context;
 
-  if (body.adminKey !== env.ADMIN_KEY) {
-    return json({ error: "Wrong admin key." }, 401);
-  }
+    for (const name of ["GITHUB_TOKEN", "GITHUB_REPO", "ADMIN_KEY"]) {
+      if (!env[name]) return json({ error: `Server is missing ${name}.` }, 500);
+    }
+    const branch = env.GITHUB_BRANCH || "main";
 
-  const gh = new GitHub(env.GITHUB_TOKEN, env.GITHUB_REPO, branch);
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return json({ error: "Body must be JSON." }, 400);
+    }
 
-  try {
+    if (!body || body.adminKey !== env.ADMIN_KEY) {
+      return json({ error: "Wrong admin key." }, 401);
+    }
+
+    const gh = new GitHub(env.GITHUB_TOKEN, env.GITHUB_REPO, branch);
+
     switch (body.mode) {
       case "addReview":
         return await addReview(body, gh);
@@ -58,9 +58,10 @@ export async function onRequestPost(context) {
         return json({ error: "Unknown mode." }, 400);
     }
   } catch (err) {
-    return json({ error: err.message || "Request failed." }, 502);
+    return json({ error: "Unhandled: " + (err && err.stack ? err.stack : String(err)) }, 502);
   }
 }
+
 
 export async function onRequest(context) {
   if (context.request.method === "POST") return onRequestPost(context);
