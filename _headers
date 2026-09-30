@@ -1,0 +1,19 @@
+# HTML — всегда проверять свежесть (иначе посетители видят старую версию)
+/
+  Cache-Control: no-cache
+/*.html
+  Cache-Control: no-cache
+
+# CSS/JS — версионируются через ?v=N в HTML, поэтому можно кэшировать надолго
+/style.css
+  Cache-Control: public, max-age=31536000, immutable
+/cities.css
+  Cache-Control: public, max-age=31536000, immutable
+/script.js
+  Cache-Control: public, max-age=31536000, immutable
+/prices.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# Картинки
+/images/*
+  Cache-Control: public, max-age=2592000
