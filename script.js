@@ -782,5 +782,33 @@
       if (navOpen && window.innerWidth >= 960) closeNav(false);
     });
   }
+  /* ---- dynamic reviews + gallery (admin-managed via reviews.json / gallery.json) ---- */
+  var reviewStrip = document.getElementById('reviewStrip');
+  if (reviewStrip) {
+    fetch('/reviews.json').then(function (r) { return r.json(); }).then(function (data) {
+      var html = '';
+      (data.items || []).forEach(function (rv) {
+        html += '<div class="rev-card"><div class="stars">★★★★★</div><q>' + escHtml(rv.text) + '</q>' + escHtml(rv.name) + '</div>';
+      });
+      reviewStrip.innerHTML = html;
+    }).catch(function () { /* leave empty on failure */ });
+  }
+
+  var workGrid = document.getElementById('workGrid');
+  if (workGrid) {
+    fetch('/gallery.json').then(function (r) { return r.json(); }).then(function (data) {
+      var html = '';
+      (data.items || []).sort(function (a, b) { return a.num - b.num; }).forEach(function (p) {
+        var n = String(p.num).padStart(2, '0');
+        html += '<img class="gallery-img" src="images/work-' + n + '.jpg" data-full="images/work-' + n + '-full.jpg" width="' + (p.w || 300) + '" height="' + (p.h || 300) + '" alt="' + escHtml(p.alt) + '" data-cap="' + escHtml(p.cap) + '" loading="lazy">';
+      });
+      workGrid.innerHTML = html;
+      if (window.refreshGalleryImgs) window.refreshGalleryImgs();
+    }).catch(function () { /* leave empty on failure */ });
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
 
 })();
